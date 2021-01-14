@@ -3,7 +3,7 @@ module.exports = {
     if (!req.session.user_id) {
       next();
     } else {
-      res.render("user/home-user");
+      res.redirect("/");
     }
   },
 };

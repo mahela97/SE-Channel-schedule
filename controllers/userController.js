@@ -27,9 +27,12 @@ module.exports = {
     console.log(body);
     const { error } = loginValidation(req.body);
     if (error) {
-      return res.redirect(`login?error=${error}`);
+      return res.redirect(`login?error=${error}&email=${body.email}`);
     }
     const user = await findUserByEmail(body.email);
+    if (!user) {
+      return res.redirect(`login?error=User is not exist&email=${body.email}`);
+    }
     const { email, password } = user;
 
     const validPass = await bcrypt.compareSync(body.password, password);
