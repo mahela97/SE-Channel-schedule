@@ -166,13 +166,14 @@
               <input type="checkbox" id="check">    
               <span>Remember me</span>    
               <br><br>  
-              {{#if error}}
-          <div>{{error}} </div>
-          {{/if}}  
+               
               Forgot <a href="forgotpw">Password</a><br><br>
               Create <a href="/register">new user account</a>   
+             <br><br>
              
-
+            {{#if error}}
+          <div style="font-size:20px; color:red;"><b>{{error}} </b></div>
+          {{/if}} 
           </form>  
           </div>
     </div>
