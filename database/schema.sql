@@ -1,3 +1,12 @@
+DROP TABLE 'CHANNEL';
+DROP TABLE 'FEEDBACKS';
+DROP TABLE 'PROGRAMS';
+DROP TABLE 'STAFF';
+DROP TABLE 'stared_program';
+DROP TABLE 'timeslot';
+DROP TABLE 'user';
+
+
 CREATE TABLE `channel` (
   `channel_id` varchar(20) NOT NULL,
   `channel_name` varchar(20) DEFAULT NULL
@@ -10,7 +19,7 @@ CREATE TABLE `channel` (
 --
 
 CREATE TABLE `feedbacks` (
-  `user_id` varchar(20) DEFAULT NULL,
+  `user_id` int(10) DEFAULT NULL,
   `feedback_id` varchar(20) NOT NULL,
   `feedback` varchar(10000) DEFAULT NULL,
   `program_id` varchar(20) DEFAULT NULL
@@ -49,7 +58,7 @@ CREATE TABLE `staff` (
 --
 
 CREATE TABLE `stared_program` (
-  `user_id` varchar(20) NOT NULL,
+  `user_id` int(10) NOT NULL,
   `program_id` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -73,7 +82,10 @@ CREATE TABLE `timeslot` (
 --
 
 CREATE TABLE `user` (
-  `user_id` varchar(20) NOT NULL,
+  `user_id` int(10) NOT NULL AUTO_INCREMENT,
+  'type' varchar(20) DEFAULT NULL,
+  'first_name' varchar(20) DEFAULT NULL,
+  'last_name' varchar(20) DEFAULT NULL,
   `email` varchar(20) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -108,7 +120,8 @@ ALTER TABLE `programs`
 -- Indexes for table `staff`
 --
 ALTER TABLE `staff`
-  ADD PRIMARY KEY (`staff_id`),
+  ADD PRIMARY KEY (`user_id`),
+
   ADD KEY `channeld_id` (`channeld_id`);
 
 --
@@ -153,6 +166,7 @@ ALTER TABLE `programs`
 --
 ALTER TABLE `staff`
   ADD CONSTRAINT `staff_ibfk_1` FOREIGN KEY (`channeld_id`) REFERENCES `channel` (`channel_id`);
+  ADD CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
 
 --
 -- Constraints for table `stared_program`

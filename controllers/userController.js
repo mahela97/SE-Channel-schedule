@@ -3,7 +3,10 @@ const {
   findUserByEmail,
 } = require("../models/userModel");
 
-const { registerValidation, loginValidation } = require("./validator/validate");
+const {
+  userRegisterValidation,
+  userLoginValidation,
+} = require("./validator/validate");
 
 const bcrypt = require("bcryptjs");
 
@@ -25,7 +28,7 @@ module.exports = {
   loginUser: async (req, res) => {
     const body = req.body;
     console.log(body);
-    const { error } = loginValidation(req.body);
+    const { error } = userLoginValidation(req.body);
     if (error) {
       return res.redirect(`login?error=${error}&email=${body.email}`);
     }
@@ -65,7 +68,7 @@ module.exports = {
   //Registering a user
   createUser: async (req, res) => {
     const body = req.body;
-    const { error } = registerValidation(req.body);
+    const { error } = userRegisterValidation(req.body);
     if (error) {
       return res.redirect(
         `register?error=${error.details[0].message}
