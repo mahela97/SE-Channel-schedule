@@ -75,7 +75,7 @@ CREATE TABLE `timeslot` (
 CREATE TABLE `user` (
   `user_id` varchar(20) NOT NULL,
   `email` varchar(20) DEFAULT NULL,
-  `password` varchar(20) DEFAULT NULL
+  `password` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

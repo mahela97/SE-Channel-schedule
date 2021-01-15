@@ -20,10 +20,14 @@ npm install
 npm start
 ```
 
-### Api Endpoints
-
-* SignUp - POST
+###Endpoints
 
 ```bash
-http://localhost:5000/user/register
+http://localhost:5000/register
+http://localhost:5000/login
+http://localhost:5000/
 ```
+
+Email - mahela@gmail.com
+
+Password = 123456
