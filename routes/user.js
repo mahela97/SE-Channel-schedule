@@ -11,7 +11,8 @@ const {
 
 const { isLoggedin } = require("../middleware/isLogged");
 const { isNotLoggedIn } = require("../middleware/isNotLoggedIn");
-
+const channel = require("../controllers/channel");
+const { render } = require("ejs");
 //Homepage
 router.get("/", isLoggedin, userHomePage);
 
@@ -25,5 +26,8 @@ router.post("/login", loginUser);
 
 //LOGOUT
 router.get("/logout", logOut);
-
+router.get("/schedule", channel.getschedulel);
+router.post("/schedule", channel.schedulel);
+router.get("/timetable", channel.get_channel);
+router.get("/timetable/:id", channel.get_channel);
 module.exports = router;
