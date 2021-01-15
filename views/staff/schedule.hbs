@@ -228,7 +228,7 @@
         <div class="wrap">
           <H1>Update Channel B TV Schedule</H1>
           <br><br>
-          <form id="add-form" action="" method="get">
+          <form id="add-form" action="/schedule" method="post">
 
             <!-- Description Line -->
             <span class="input">Time:&emsp;</span> <select name="time" style="width: 15%;
@@ -237,24 +237,15 @@
           display: inline-block;
           border: none;
           background: #f1f1f1;">
-              <option value="0.00-05.30">0.00-05.30</option>
-              <option value="05.30-06.30">05.30-06.30</option>
-              <option value="06-30-06.45">06-30-06.45</option>
-              <option value="06-45-08.00">06-45-08.00</option>
-              <option value="08.00-11.00">08.00-11.00</option>
-              <option value="11.00-12.00">11.00-12.00</option>
-              <option value="12.00-12.30">12.00-12.30</option>
-              <option value="12.30-15.30">12.30-15.30</option>
-              <option value="15.30-18.00">15.30-18.00</option>
-              <option value="18.00-19.00">18.00-19.00</option>
-              <option value="19.00-19.30">19.00-19.30</option>
-              <option value="19.30-20.00">19.30-20.00</option>
-              <option value="20.00-20.30">20.00-20.30</option>
-              <option value="20.30-21.00">20.30-21.00</option>
-              <option value="21.00-21.30">21.00-21.30</option>
-              <option value="21.30-22.00">21.30-22.00</option>
-              <option value="22.00-22.30">22.00-22.30</option>
-              <option value="22.30-01.00">22.30-01.00</option>
+              {{#each channel.timeslot}}
+              <div>
+
+                <option value="{{this.[0]}}">{{this.[1]}}</option>
+
+              </div>
+
+              {{/each}}
+
             </select>
 
             <span class="input">&emsp;&emsp;Day:&emsp;</span><select name="day" style="width: 15%;
@@ -263,13 +254,14 @@
           display: inline-block;
           border: none;
           background: #f1f1f1;">
-              <option value="Monday">Monday</option>
-              <option value="Tuesday">Tuesday</option>
-              <option value="Wednesday">Wednesday</option>
-              <option value="Thursday">Thursday</option>
-              <option value="Friday">Friday</option>
-              <option value="Saturday">Saturday</option>
-              <option value="Sunday">Sunday</option>
+              {{#each channel.day}}
+              <div>
+
+                <option value="{{this.[0]}}">{{this.[1]}}</option>
+
+              </div>
+
+              {{/each}}
             </select>
             <span class="input">&emsp;&emsp;Programme:&emsp;</span><input type="text" style="width: 25%;
           padding: 15px;
@@ -278,6 +270,13 @@
           border: none;
           background: #f1f1f1;" placeholder="Enter Programme name" name="programme" id="programme" required>
 
+
+            <span class="input">&emsp;&emsp;Programme Id:&emsp;</span><input type="text" style="width: 25%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;" placeholder="Enter Programme id" name="programme_id" id="programme_id" required>
             <br><br>
 
             <!-- Button -->
@@ -307,93 +306,93 @@
               <TR>
                 <TD>0.00-05.30</TD>
                 <TD>
-                  <div class="subject">Pirith</div>
+                  <div class="subject">{{channel.timetable.slot.monday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Pirith</div>
+                  <div class="subject">{{channel.timetable.slot.Tuesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Pirith</div>
+                  <div class="subject">{{channel.timetable.slot.Wednesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Pirith</div>
+                  <div class="subject">{{channel.timetable.slot.Thursday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Pirith</div>
+                  <div class="subject">{{channel.timetable.slot.Friday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Pirith</div>
+                  <div class="subject">{{channel.timetable.slot.Saturday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Pirith</div>
+                  <div class="subject">{{channel.timetable.slot.Sunday.name}}</div>
                   <div class="room"></div>
                 </TD>
               </TR>
               <TR>
                 <TD>05.30-06.30</TD>
                 <TD>
-                  <div class="subject">Big Boss</div>
+                  <div class="subject">{{channel.timetable.slot2.monday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Big Boss</div>
+                  <div class="subject">{{channel.timetable.slot2.Tuesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Big Boss</div>
+                  <div class="subject">{{channel.timetable.slot2.Wednesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Big Boss</div>
+                  <div class="subject">{{channel.timetable.slot2.Thursday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Big Boss</div>
+                  <div class="subject">{{channel.timetable.slot2.Friday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Big Boss</div>
+                  <div class="subject">{{channel.timetable.slot2.Saturday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Big Boss</div>
+                  <div class="subject">{{channel.timetable.slot2.Sunday.name}}</div>
                   <div class="room"></div>
                 </TD>
               </TR>
               <TR>
                 <TD>06-30-06.45</TD>
                 <TD>
-                  <div class="subject">Prime Time News</div>
+                  <div class="subject">{{channel.timetable.slot3.monday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Prime Time News</div>
+                  <div class="subject">{{channel.timetable.slot3.Tuesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Prime Time News</div>
+                  <div class="subject">{{channel.timetable.slot3.Wednesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Prime Time News</div>
+                  <div class="subject">{{channel.timetable.slot3.Thursday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Prime Time News</div>
+                  <div class="subject">{{channel.timetable.slot3.Friday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Prime Time News</div>
+                  <div class="subject">{{channel.timetable.slot3.Saturday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Prime Time News</div>
+                  <div class="subject">{{channel.timetable.slot3.Sunday.name}}</div>
                   <div class="room"></div>
                 </TD>
 
@@ -401,94 +400,93 @@
               <TR>
                 <TD>06-45-08.00</TD>
                 <TD>
-                  <div class="subject">Kids Movie</div>
+                  <div class="subject">{{channel.timetable.slot4.monday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Kids Movie</div>
+                  <div class="subject">{{channel.timetable.slot4.Tuesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Kids Movie</div>
+                  <div class="subject">{{channel.timetable.slot4.Wednesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Kids Movie</div>
+                  <div class="subject">{{channel.timetable.slot4.Thursday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Kids Movie</div>
+                  <div class="subject">{{channel.timetable.slot4.Friday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">ICT Program</div>
+                  <div class="subject">{{channel.timetable.slot4.Saturday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Channel B Game Show</div>
+                  <div class="subject">{{channel.timetable.slot4.Sunday.name}}</div>
                   <div class="room"></div>
                 </TD>
-
               </TR>
               <TR>
                 <TD>08.00-11.00</TD>
                 <TD>
-                  <div class="subject">Sunshine Chat</div>
+                  <div class="subject">{{channel.timetable.slot5.monday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Sunshine Chat</div>
+                  <div class="subject">{{channel.timetable.slot5.Tuesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Sunshine Chat</div>
+                  <div class="subject">{{channel.timetable.slot5.Wednesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Sunshine Chat</div>
+                  <div class="subject">{{channel.timetable.slot5.Thursday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Sunshine Chat</div>
+                  <div class="subject">{{channel.timetable.slot5.Friday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Tamil Movie</div>
+                  <div class="subject">{{channel.timetable.slot5.Saturday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Hindi Movie</div>
+                  <div class="subject">{{channel.timetable.slot5.Sunday.name}}</div>
                   <div class="room"></div>
                 </TD>
               </TR>
               <TR>
                 <TD>11.00-12.00</TD>
                 <TD>
-                  <div class="subject">Red Mike</div>
+                  <div class="subject">{{channel.timetable.slot6.monday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Red Mike</div>
+                  <div class="subject">{{channel.timetable.slot6.Tuesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Red Mike</div>
+                  <div class="subject">{{channel.timetable.slot6.Wednesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Red Mike</div>
+                  <div class="subject">{{channel.timetable.slot6.Thursday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Red Mike</div>
+                  <div class="subject">{{channel.timetable.slot6.Friday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Cafe Classics</div>
+                  <div class="subject">{{channel.timetable.slot6.Saturday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Rising Bird</div>
+                  <div class="subject">{{channel.timetable.slot6.Sunday.name}}</div>
                   <div class="room"></div>
                 </TD>
 
@@ -496,31 +494,31 @@
               <TR>
                 <TD>12.00-12.30</TD>
                 <TD>
-                  <div class="subject">Lunch Time News</div>
+                  <div class="subject">{{channel.timetable.slot7.monday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Lunch Time News</div>
+                  <div class="subject">{{channel.timetable.slot7.Tuesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Lunch Time News</div>
+                  <div class="subject">{{channel.timetable.slot7.Wednesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Lunch Time News</div>
+                  <div class="subject">{{channel.timetable.slot7.Thursday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Lunch Time News</div>
+                  <div class="subject">{{channel.timetable.slot7.Friday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Lunch Time News</div>
+                  <div class="subject">{{channel.timetable.slot7.Saturday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Lunch Time News</div>
+                  <div class="subject">{{channel.timetable.slot7.Sunday.name}}</div>
                   <div class="room"></div>
                 </TD>
 
@@ -528,62 +526,62 @@
               <TR>
                 <TD>12.30-15.30</TD>
                 <TD>
-                  <div class="subject">Lunch Time Movie</div>
+                  <div class="subject">{{channel.timetable.slot8.monday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Lunch Time Movie</div>
+                  <div class="subject">{{channel.timetable.slot8.Tuesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Lunch Time Movie</div>
+                  <div class="subject">{{channel.timetable.slot8.Wednesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Lunch Time Movie</div>
+                  <div class="subject">{{channel.timetable.slot8.Thursday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Lunch Time Movie</div>
+                  <div class="subject">{{channel.timetable.slot8.Friday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">English Blockbuster</div>
+                  <div class="subject">{{channel.timetable.slot8.Saturday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">English Blockbuster</div>
+                  <div class="subject">{{channel.timetable.slot8.Sunday.name}}</div>
                   <div class="room"></div>
                 </TD>
               </TR>
               <TR>
                 <TD>15.30-18.00</TD>
                 <TD>
-                  <div class="subject">Kids Cartoon</div>
+                  <div class="subject">{{channel.timetable.slot9.monday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Kids Cartoon</div>
+                  <div class="subject">{{channel.timetable.slot9.Tuesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Kids Cartoon</div>
+                  <div class="subject">{{channel.timetable.slot9.Wednesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Kids Cartoon</div>
+                  <div class="subject">{{channel.timetable.slot9.Thursday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Kids Cartoon</div>
+                  <div class="subject">{{channel.timetable.slot9.Friday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Kids Movie</div>
+                  <div class="subject">{{channel.timetable.slot9.Saturday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Kids Movie</div>
+                  <div class="subject">{{channel.timetable.slot9.Sunday.name}}</div>
                   <div class="room"></div>
                 </TD>
 
@@ -591,31 +589,31 @@
               <TR>
                 <TD>18.00-19.00</TD>
                 <TD>
-                  <div class="subject">Channel B chart show</div>
+                  <div class="subject">{{channel.timetable.slot10.monday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Chemistry Lesson</div>
+                  <div class="subject">{{channel.timetable.slot10.Tuesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Physics Lesson</div>
+                  <div class="subject">{{channel.timetable.slot10.Wednesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Maths Lesson</div>
+                  <div class="subject">{{channel.timetable.slot10.Thursday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Biology Lesson</div>
+                  <div class="subject">{{channel.timetable.slot10.Friday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Travel program</div>
+                  <div class="subject">{{channel.timetable.slot10.Saturday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Cookery Show</div>
+                  <div class="subject">{{channel.timetable.slot10.Sunday.name}}</div>
                   <div class="room"></div>
                 </TD>
 
@@ -623,186 +621,186 @@
               <TR>
                 <TD>19.00-19.30</TD>
                 <TD>
-                  <div class="subject">News At 7</div>
+                  <div class="subject">{{channel.timetable.slot11.monday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">News At 7</div>
+                  <div class="subject">{{channel.timetable.slot11.Tuesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">News At 7</div>
+                  <div class="subject">{{channel.timetable.slot11.Wednesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">News At 7</div>
+                  <div class="subject">{{channel.timetable.slot11.Thursday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">News At 7</div>
+                  <div class="subject">{{channel.timetable.slot11.Friday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">News At 7</div>
+                  <div class="subject">{{channel.timetable.slot11.Saturday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">News At 7</div>
+                  <div class="subject">{{channel.timetable.slot11.Sunday.name}}</div>
                   <div class="room"></div>
                 </TD>
               </TR>
               <TR>
                 <TD>19.30-20.00</TD>
                 <TD>
-                  <div class="subject">K Drama</div>
+                  <div class="subject">{{channel.timetable.slot12.monday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">K Drama</div>
+                  <div class="subject">{{channel.timetable.slot12.Tuesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">K Drama</div>
+                  <div class="subject">{{channel.timetable.slot12.Wednesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">K Drama</div>
+                  <div class="subject">{{channel.timetable.slot12.Thursday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">K Drama</div>
+                  <div class="subject">{{channel.timetable.slot12.Friday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Super Star</div>
+                  <div class="subject">{{channel.timetable.slot12.Saturday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Super Star</div>
+                  <div class="subject">{{channel.timetable.slot12.Sunday.name}}</div>
                   <div class="room"></div>
                 </TD>
               </TR>
               <TR>
                 <TD>20.00-20.30</TD>
                 <TD>
-                  <div class="subject">Dev 2</div>
+                  <div class="subject">{{channel.timetable.slot13.monday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Dev 2</div>
+                  <div class="subject">{{channel.timetable.slot13.Tuesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Dev 2</div>
+                  <div class="subject">{{channel.timetable.slot13.Wednesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Dev 2</div>
+                  <div class="subject">{{channel.timetable.slot13.Thursday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Dev 2</div>
+                  <div class="subject">{{channel.timetable.slot13.Friday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Super Star</div>
+                  <div class="subject">{{channel.timetable.slot13.Saturday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Super Star</div>
+                  <div class="subject">{{channel.timetable.slot13.Sunday.name}}</div>
                   <div class="room"></div>
                 </TD>
               </TR>
               <TR>
                 <TD>20.30-21.00</TD>
                 <TD>
-                  <div class="subject">Shani</div>
+                  <div class="subject">{{channel.timetable.slot14.monday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Shani</div>
+                  <div class="subject">{{channel.timetable.slot14.Tuesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Shani</div>
+                  <div class="subject">{{channel.timetable.slot14.Wednesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Shani</div>
+                  <div class="subject">{{channel.timetable.slot14.Thursday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Shani</div>
+                  <div class="subject">{{channel.timetable.slot14.Friday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Pinocchio</div>
+                  <div class="subject">{{channel.timetable.slot14.Saturday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Pinocchio</div>
+                  <div class="subject">{{channel.timetable.slot14.Sunday.name}}</div>
                   <div class="room"></div>
                 </TD>
               </TR>
               <TR>
                 <TD>21.00-21.30</TD>
                 <TD>
-                  <div class="subject">IMMJ 2</div>
+                  <div class="subject">{{channel.timetable.slot15.monday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">IMMJ 2</div>
+                  <div class="subject">{{channel.timetable.slot15.Tuesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">IMMJ 2</div>
+                  <div class="subject">{{channel.timetable.slot15.Wednesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">IMMJ 2</div>
+                  <div class="subject">{{channel.timetable.slot15.Thursday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">IMMJ 2</div>
+                  <div class="subject">{{channel.timetable.slot15.Friday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Millionaire</div>
+                  <div class="subject">{{channel.timetable.slot15.Saturday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Millionaire</div>
+                  <div class="subject">{{channel.timetable.slot15.Sunday.name}}</div>
                   <div class="room"></div>
                 </TD>
               </TR>
               <TR>
                 <TD>21.30-22.00</TD>
                 <TD>
-                  <div class="subject">Bepannah</div>
+                  <div class="subject">{{channel.timetable.slot16.monday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Bepannah</div>
+                  <div class="subject">{{channel.timetable.slot16.Tuesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Bepannah</div>
+                  <div class="subject">{{channel.timetable.slot16.Wednesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Bepannah</div>
+                  <div class="subject">{{channel.timetable.slot16.Thursday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Bepannah</div>
+                  <div class="subject">{{channel.timetable.slot16.Friday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Millionaire</div>
+                  <div class="subject">{{channel.timetable.slot16.Saturday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Millionaire</div>
+                  <div class="subject">{{channel.timetable.slot16.Sunday.name}}</div>
                   <div class="room"></div>
                 </TD>
               </TR>
@@ -810,62 +808,62 @@
               <TR>
                 <TD>22.00-22.30</TD>
                 <TD>
-                  <div class="subject">News At 10</div>
+                  <div class="subject">{{channel.timetable.slot17.monday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">News At 10</div>
+                  <div class="subject">{{channel.timetable.slot17.Tuesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">News At 10</div>
+                  <div class="subject">{{channel.timetable.slot17.Wednesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">News At 10</div>
+                  <div class="subject">{{channel.timetable.slot17.Thursday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">News At 10</div>
+                  <div class="subject">{{channel.timetable.slot17.Friday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">News At 10</div>
+                  <div class="subject">{{channel.timetable.slot17.Saturday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">News At 10</div>
+                  <div class="subject">{{channel.timetable.slot17.Sunday.name}}</div>
                   <div class="room"></div>
                 </TD>
               </TR>
               <TR>
                 <TD>22.30-01.00</TD>
                 <TD>
-                  <div class="subject">Satana</div>
+                  <div class="subject">{{channel.timetable.slot18.monday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">English for Life</div>
+                  <div class="subject">{{channel.timetable.slot18.Tuesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Auto Vision</div>
+                  <div class="subject">{{channel.timetable.slot18.Wednesday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">O/L Guide Program</div>
+                  <div class="subject">{{channel.timetable.slot18.Thursday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">O/L Guide Program</div>
+                  <div class="subject">{{channel.timetable.slot18.Friday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Chat and Music</div>
+                  <div class="subject">{{channel.timetable.slot18.Saturday.name}}</div>
                   <div class="room"></div>
                 </TD>
                 <TD>
-                  <div class="subject">Musical Show</div>
+                  <div class="subject">{{channel.timetable.slot18.Sunday.name}}</div>
                   <div class="room"></div>
                 </TD>
               </TR>
