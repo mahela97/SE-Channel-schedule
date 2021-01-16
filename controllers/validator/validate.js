@@ -4,6 +4,10 @@ const userRegisterValidation = (data) => {
   const schema = {
     user_id: Joi.any(),
     email: Joi.string().min(6).max(255).required().email(),
+    firstname: Joi.any(),
+    lastname: Joi.any(),
+    firstq: Joi.any(),
+    secq: Joi.any(),
     password: Joi.string().min(6).max(255).required(),
     password_repeat: Joi.any().valid(Joi.ref("password")).required(),
   };

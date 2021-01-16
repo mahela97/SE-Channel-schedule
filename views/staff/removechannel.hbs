@@ -65,15 +65,14 @@
 <nav class="panel top">
   <div class="sections desktop">
     
-   <div class="left"><a href="login" title="Logout">Log out</a></div>
+   <div class="left"><a href="../login.hbs" title="Logout">Log out</a></div>
    <div class="center">
        <ul class="menu">
-        <li><a href="home-staff">Home-staff</a></li>
-        
-        <li><a href="schedule">Schedule</a></li>
+        <li><a href="home-staff.hbs">Home-staff</a></li>
+        <li><a href="schedule.hbs">Schedule</a></li>
         <li><a href="#">Channel Management</a></li>
-        <li><a href="account">Account</a></li>
-        <li><a href="accountupdates">Account Updates</a></li>
+        <li><a href="account.hbs">Account</a></li>
+        <li><a href="accountupdates.hbs">Account Updates</a></li>
       </ul> 
     </div>
    
@@ -90,11 +89,11 @@
   <div class="content">
     
     <ul class="mainMenu margin-top-3">
-      <li><a href="home-staff.html">Home-staff</a></li>
-      <li><a href="schedule.html">Schedule</a></li>
+      <li><a href="home-staff.hbs">Home-staff</a></li>
+      <li><a href="schedule.hbs">Schedule</a></li>
       <li><a href="#">Channel Management</a></li>
-      <li><a href="account.html">Account</a></li>
-      <li><a href="accountupdates.html">Account Updates</a></li>
+      <li><a href="account.hbs">Account</a></li>
+      <li><a href="accountupdates.hbs">Account Updates</a></li>
       
     </ul>
     <ul class="subMenu small opacity-8">
@@ -114,15 +113,10 @@
 <!-- Slide 3  -->
 <section class="slide fade-6 kenBurns">
   <div class="content">
-    <div class="container" style="position: fixed;">
+    <div class="container">
+       <div class="wrap">
+	  <div class="fix-12-12">
         <form action="/action_page.php">
-            <div class="container" style="font-family: Arial, Helvetica, sans-serif;
-            padding: 20px;
-            width:530px;
-            position:absolute;
-            top:15%;
-            left: 33%;">
-             
                   <h1 style="text-align: center;"><b>Remove Channel</b></h1>
                   <label><b>Channel Name 
                   </b>    
@@ -145,12 +139,13 @@
                   opacity: 0.9;" class="logbtn">Remove</button>
                   <br><br>  
                     
-                  <a href="addchannel.html">Add New Channel</a><br><br>
+                  <a href="addchannel.hbs">Add New Channel</a><br><br>
                   </form>
         
           </div>
     </div>
   </div>
+</div>
   <div class="background" style="background-image:url(../assets/img/background/image-33.jpg)"></div>
 </section>
 

@@ -1,5 +1,6 @@
 const { findUserByEmail } = require("../models/userModel");
 const { userLoginValidation } = require("./validator/validate");
+const bcrypt = require("bcryptjs");
 
 module.exports = {
   //RENDER LOGIN PAGE
@@ -34,6 +35,7 @@ module.exports = {
     }
     req.session.user_id = email;
     req.session.type = type;
+    console.log("here", req.session);
     return res.redirect(`/`);
   },
 

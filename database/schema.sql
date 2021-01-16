@@ -130,7 +130,7 @@ ALTER TABLE `timeslot`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`);
-ALTER TABLE `user` AUTO_INCREMENT = 0;
+ALTER TABLE `user` CHANGE `user_id` `user_id` INT(10)AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

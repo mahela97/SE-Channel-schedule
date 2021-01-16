@@ -5,13 +5,15 @@ module.exports = {
   createRegisteredUser: (data, callBack) => {
     pool.query(
       `
-        INSERT INTO user (first_name,last_name,email, password) VALUES (?,?,?,?, ?);
+        INSERT INTO user (first_name,last_name,type,email, password) VALUES (?,?,?,?,?);
         `,
-      [data.first_name, data.last_name, data.email, data.password],
+      [data.first_name, data.last_name, "user", data.email, data.password],
       (err, result) => {
         if (err) {
+          console.log(err);
           return callBack(err);
         } else {
+          console.log(result);
           return callBack(null, result);
         }
       }
