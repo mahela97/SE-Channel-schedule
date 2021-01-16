@@ -1,11 +1,6 @@
 const router = require("express").Router();
-const {
-  staffLogin,
-  staffLoginPage,
-} = require("../controllers/staffController");
+const { staffHomepage } = require("../controllers/staffController");
 
-//STAFF LOGIN
-router.get("/login", staffLoginPage);
-router.post("/login", staffLogin);
+router.get("/home", staffHomepage);
 
 module.exports = router;

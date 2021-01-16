@@ -1,8 +1,7 @@
-const {
-  createStaffMember,
-  findMemberByEmail,
-} = require("../models/staffModel");
-const staffLoginValidation = require("./validator/validate");
-const bcrypt = require("bcryptjs");
+module.exports = {
+  //RENDER STAFF HOMEPAGE
 
-module.exports = {};
+  staffHomepage: (req, res) => {
+    res.render("staff/home-staff");
+  },
+};

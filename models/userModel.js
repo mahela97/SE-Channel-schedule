@@ -5,9 +5,9 @@ module.exports = {
   createRegisteredUser: (data, callBack) => {
     pool.query(
       `
-        INSERT INTO user (user_id,email, password) VALUES (?,?, ?);
+        INSERT INTO user (first_name,last_name,email, password) VALUES (?,?,?,?, ?);
         `,
-      [data.user_id, data.email, data.password],
+      [data.first_name, data.last_name, data.email, data.password],
       (err, result) => {
         if (err) {
           return callBack(err);
@@ -22,7 +22,7 @@ module.exports = {
   findUserByEmail: (email) => {
     return new Promise((resolve, reject) => {
       pool.query(
-        ` SELECT email,password FROM USER WHERE email=?;`,
+        ` SELECT email,type,password FROM USER WHERE email=?;`,
         [email],
         (err, result) => {
           if (err) {
