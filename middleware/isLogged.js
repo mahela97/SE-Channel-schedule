@@ -1,5 +1,5 @@
 module.exports = {
-  isLoggedin: (req, res, next) => {
+  isLogged: (req, res, next) => {
     if (req.session.user_id) {
       next();
     } else {

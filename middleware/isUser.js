@@ -6,4 +6,4 @@ const isUser = (req, res, next) => {
   }
 };
 
-module.exports = isUser;
+module.exports.isUser = isUser;
