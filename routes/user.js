@@ -29,5 +29,9 @@ router.get("/logout", logOut);
 router.get("/schedule", channel.getschedulel);
 router.post("/schedule", channel.schedulel);
 router.get("/timetable", channel.get_channel);
+
+router.get("/addfeedback", channel.get_program);
 router.get("/timetable/:id", channel.get_channel);
+router.get("/addfeedback/:id", channel.get_program);
+router.post("/addfeedback/:id", channel.addfeedback);
 module.exports = router;
