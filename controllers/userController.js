@@ -33,6 +33,8 @@ module.exports = {
 
     const salt = await bcrypt.genSalt(10);
     body.password = await bcrypt.hash(body.password, salt);
+    body.firstq = await bcrypt.hash(body.firstq, salt);
+    body.secq = await bcrypt.hash(body.secq, salt);
 
     createRegisteredUser(body, (err, result) => {
       if (err) {

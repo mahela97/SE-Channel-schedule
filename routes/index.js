@@ -8,6 +8,8 @@ const {
   logOut,
   recoverPage,
   getEmail,
+  checkPage,
+  matchQuestions,
 } = require("../controllers/indexController");
 
 const { registerPage, createUser } = require("../controllers/userController");
@@ -22,6 +24,10 @@ router.get("/", isLogged, whatType);
 //ACCOUNT RECOVERY
 router.get("/forgotpw", recoverPage);
 router.post("/forgotpw", getEmail);
+
+//QUESTION PAGE
+router.get("/check", checkPage);
+router.post("/check", matchQuestions);
 
 //LOGIN
 router.get("/login", isNotLoggedIn, loginPage);

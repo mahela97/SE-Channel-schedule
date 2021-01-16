@@ -1,5 +1,8 @@
 const { findUserByEmail } = require("../models/userModel");
-const { userLoginValidation } = require("./validator/validate");
+const {
+  userLoginValidation,
+  validatePassword,
+} = require("./validator/validate");
 const bcrypt = require("bcryptjs");
 
 module.exports = {
@@ -36,7 +39,6 @@ module.exports = {
     }
     req.session.user_id = email;
     req.session.type = type;
-    console.log("here", req.session);
     return res.redirect(`/`);
   },
 
@@ -56,13 +58,59 @@ module.exports = {
   getEmail: async (req, res) => {
     const body = req.body;
     const user = await findUserByEmail(body.Uname);
-    console.log(body);
     if (!user) {
       return res.redirect(
-        `forgotpw?error=User is not exist&email=${body.email}`
+        `forgotpw?error=User is not exist&email=${body.Uname}`
       );
     }
-    console.log("gg");
-    return res.render(`changepw`);
+    req.session.email = user.email;
+    req.session.valid = true;
+    return res.redirect(`/check`);
+  },
+
+  //RENDER CHANGE PASSWORD
+  changePasswordPage: (req, res) => {
+    return res.render("changepw");
+  },
+
+  //CHANGE PASSWORD
+  changePassword: async (req, res) => {
+    const body = req.body;
+    const { error } = validatePassword(body);
+    if (error) {
+      return res.redirect(`changepw?error=Passwords do not match`);
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    body.newpass = await bcrypt.hash(body.newpass, salt);
+    body.email = req.session.email;
+    saveNewPassword(body, (err, result) => {
+      if (err) {
+        return res.redirect(`changepw?error=Error}`);
+      } else {
+        return res.redirect("/login");
+      }
+    });
+  },
+
+  //RENDER SECURITY CHECK
+  checkPage: (req, res) => {
+    return res.render("securitycheck");
+  },
+
+  //MATCH SECURITY QUESTIONS
+  matchQuestions: async (req, res) => {
+    const body = req.body;
+    const user = await findUserByEmail(req.session.email);
+    const { pet, color } = user;
+    const validPet = await bcrypt.compare(body.secq, pet);
+    const validColor = await bcrypt.compare(body.firstq, color);
+    console.log(validPet, validColor);
+    if (validPet && validColor) {
+      req.session.valid = true;
+      return res.redirect("/changepw");
+    } else {
+      return res.redirect(`forgotpw?error=Answers are not correct`);
+    }
   },
 };

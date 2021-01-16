@@ -5,9 +5,33 @@ module.exports = {
   createRegisteredUser: (data, callBack) => {
     pool.query(
       `
-        INSERT INTO user (first_name,last_name,type,email, password) VALUES (?,?,?,?,?);
+        INSERT INTO user (first_name,last_name,type,pet,color,email, password) VALUES (?,?,?,?,?,?,?);
         `,
-      [data.first_name, data.last_name, "user", data.email, data.password],
+      [
+        data.firstname,
+        data.lastname,
+        "user",
+        data.secq,
+        data.firstq,
+        data.email,
+        data.password,
+      ],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+          return callBack(err);
+        } else {
+          console.log(result);
+          return callBack(null, result);
+        }
+      }
+    );
+  },
+  //SAVE PASSWORD
+  saveNewPassword: (data, callBack) => {
+    pool.query(
+      `update user set password=? where email=?;`,
+      [data.newpass, data.email],
       (err, result) => {
         if (err) {
           console.log(err);
@@ -24,7 +48,7 @@ module.exports = {
   findUserByEmail: (email) => {
     return new Promise((resolve, reject) => {
       pool.query(
-        ` SELECT email,type,password FROM USER WHERE email=?;`,
+        ` SELECT email,type,password,pet,color FROM USER WHERE email=?;`,
         [email],
         (err, result) => {
           if (err) {
