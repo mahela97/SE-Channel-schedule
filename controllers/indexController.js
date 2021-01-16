@@ -1,4 +1,4 @@
-const { findUserByEmail } = require("../models/userModel");
+const { findUserByEmail, saveNewPassword } = require("../models/userModel");
 const {
   userLoginValidation,
   validatePassword,
@@ -18,7 +18,6 @@ module.exports = {
   //LOGIN USER
   loginUser: async (req, res) => {
     const body = req.body;
-    console.log(body);
     const { error } = userLoginValidation(req.body);
     if (error) {
       return res.redirect(`login?error=${error}&email=${body.email}`);
@@ -64,7 +63,7 @@ module.exports = {
       );
     }
     req.session.email = user.email;
-    req.session.valid = true;
+    req.session.valid = false;
     return res.redirect(`/check`);
   },
 

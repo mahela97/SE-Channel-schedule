@@ -10,6 +10,8 @@ const {
   getEmail,
   checkPage,
   matchQuestions,
+  changePasswordPage,
+  changePassword,
 } = require("../controllers/indexController");
 
 const { registerPage, createUser } = require("../controllers/userController");
@@ -17,6 +19,8 @@ const { registerPage, createUser } = require("../controllers/userController");
 const { isLogged } = require("../middleware/isLogged");
 const { isNotLoggedIn } = require("../middleware/isNotLoggedIn");
 const { whatType } = require("../middleware/whatType");
+const { isValidate } = require("../middleware/isValidate");
+const { allowEmail } = require("../middleware/allowEmail");
 
 //INDEX
 router.get("/", isLogged, whatType);
@@ -26,8 +30,27 @@ router.get("/forgotpw", recoverPage);
 router.post("/forgotpw", getEmail);
 
 //QUESTION PAGE
-router.get("/check", checkPage);
+router.get("/check", allowEmail, checkPage);
 router.post("/check", matchQuestions);
+
+//CHANGE PASSWORD RECOVER
+router.get(
+  "/changepw",
+  (req, res, next) => {
+    console.log("get");
+    next();
+  },
+  isValidate,
+  changePasswordPage
+);
+router.post(
+  "/changepw",
+  (req, res, next) => {
+    console.log("post");
+    next();
+  },
+  changePassword
+);
 
 //LOGIN
 router.get("/login", isNotLoggedIn, loginPage);

@@ -35,6 +35,7 @@ const validatePassword = (data) => {
     newpass: Joi.string().min(6).max(255).required(),
     newpass1: Joi.any().valid(Joi.ref("newpass")).required(),
   };
+  return Joi.validate(data, schema);
 };
 
 module.exports.userRegisterValidation = userRegisterValidation;
