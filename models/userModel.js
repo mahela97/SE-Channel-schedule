@@ -310,4 +310,100 @@ slot18[pro]= {"name":result[j].program_name,"time":result[j].start_time+" - "+re
       );
     });
   },
+
+  getprogramTable: (channelname,userid) => {
+    return new Promise((resolve, reject) => {
+    pool.query("select * from programs left outer join channel using(channel_id) left outer join stared_program as fp using(program_id) where channel_name=? and (fp.user_id is null or user_id=?);", [channelname,"22"], (err, result) => {
+      if (err) {
+        console.log(err);
+        reject(err);
+      } else {
+        var program = {};
+        const fre = result;
+        for (j = 0; j < fre.length; j++) {
+          var pro = "program" + j;
+          const prId = fre[j].program_id;
+          const prname = fre[j].program_name;
+         
+          // var prodValue = {'channelname':result[j].channel_name};
+          //result_len=result_len-1;
+       program[pro] = { "name": prname, "id": prId, "fav":result[j].user_id};
+
+        }
+        
+           console.log( program);
+        resolve(program);
+      }
+    });
+  });
+  },
+  addfeedback: (data, userid) => {
+    if (data.addfeedback != "") { 
+ pool.query(
+     "INSERT INTO `feedbacks`(`user_id`, `feedback`, `program_id`) VALUES (?,?,?);",[userid,data.addfeedback,data.proid],
+      (err, result) => {
+        if (err) {
+           console.log(err);
+         
+        } else {
+           console.log(result);
+         
+        }
+      }
+    );
+    }
+    console.log(data.fav);
+      pool.query(
+     "select * from `stared_program` where `user_id`=? and  `program_id`=? ;",[userid,data.proid],
+      (err, result) => {
+        if (err) {
+           console.log(err);
+         
+        } else {
+          if (result.length > 0) {
+            
+            if (!data.fav) { 
+pool.query(
+     "delete  from `stared_program` where `user_id`=? and `program_id`=? ;",[userid,data.proid],
+      
+      (err, result) => {
+        if (err) {
+           console.log(err);
+         
+        } else {
+             console.log(result);
+        }
+      }
+    );
+
+            }
+          }
+          else { 
+           if (data.fav) {
+ pool.query(
+     "INSERT INTO `stared_program`(`user_id`, `program_id`) VALUES (?,?);",[userid,data.proid],
+      
+      (err, result) => {
+        if (err) {
+           console.log(err);
+         
+        } else {
+           console.log(result);
+        }
+      }
+    );
+            }
+           
+          }
+        }
+      }
+    );
+
+
+
+ 
+
+   
+  
+  },
 };
