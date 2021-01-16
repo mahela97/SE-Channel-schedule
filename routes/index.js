@@ -6,6 +6,8 @@ const {
   loginPage,
   loginUser,
   logOut,
+  recoverPage,
+  getEmail,
 } = require("../controllers/indexController");
 
 const { registerPage, createUser } = require("../controllers/userController");
@@ -16,6 +18,10 @@ const { whatType } = require("../middleware/whatType");
 
 //INDEX
 router.get("/", isLogged, whatType);
+
+//ACCOUNT RECOVERY
+router.get("/forgotpw", recoverPage);
+router.post("/forgotpw", getEmail);
 
 //LOGIN
 router.get("/login", isNotLoggedIn, loginPage);

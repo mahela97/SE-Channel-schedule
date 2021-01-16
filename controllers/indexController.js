@@ -12,6 +12,7 @@ module.exports = {
     });
   },
 
+  //LOGIN USER
   loginUser: async (req, res) => {
     const body = req.body;
     console.log(body);
@@ -44,5 +45,24 @@ module.exports = {
     req.session.user_id = null;
     req.session.type = null;
     return res.redirect("/login");
+  },
+
+  //RENDER RECOVER PAGE
+  recoverPage: (req, res) => {
+    return res.render("forgotpw");
+  },
+
+  //GET RECOVER EMAIL
+  getEmail: async (req, res) => {
+    const body = req.body;
+    const user = await findUserByEmail(body.Uname);
+    console.log(body);
+    if (!user) {
+      return res.redirect(
+        `forgotpw?error=User is not exist&email=${body.email}`
+      );
+    }
+    console.log("gg");
+    return res.render(`changepw`);
   },
 };
