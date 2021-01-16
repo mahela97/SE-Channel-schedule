@@ -292,11 +292,21 @@
     <div class="content">
 
       <ul class="mainMenu margin-top-3">
-        <li><a href="home-user.html">Home-user</a></li>
-        <li><a href="#">Time table</a></li>
-        <li><a href="addfeedback.html">Favourites/Feedback</a></li>
-        <li><a href="account-user.html">Account</a></li>
-        <li><a href="accountupdates-user.html">Account Updates</a></li>
+        <li>
+          <base href="/"><a href="/">Home-user</a>
+        </li>
+        <li>
+          <base href="/"><a href="#">Time table</a>
+        </li>
+        <li>
+          <base href="/"><a href="addfeedback">Favourites/Feedback</a>
+        </li>
+        <li>
+          <base href="/"><a href="account-user">Account</a>
+        </li>
+        <li>
+          <base href="/"><a href="accountupdates-user">Account Updates</a>
+        </li>
 
       </ul>
       <ul class="subMenu small opacity-8">
@@ -343,17 +353,24 @@
 
 
           </div -->
-          {{#each channel.channel}}
-          <div>
-            <a class="nav-link" href="/timetable/{{this}}">
-              {{this}}
-            </a>
-          </div>
-
-          {{/each}}
+          <TABLE class="myTimetable">
+            <THEAD>
+              <tr>
+                {{#each channel.channel}}
+                <td>
+                  <div>
+                    <a class="nav-link" href="/timetable/{{this}}">
+                      {{this}}
+                    </a>
+                  </div>
+                </td>
+                {{/each}}
+              </tr>
+            </THEAD>
+          </TABLE>
 
           {{#if channel.timetable}}
-          <H1>Channel B TV Schedule</H1>
+          <H1>{{ch}} TV Schedule</H1>
 
           <TABLE class="myTimetable">
             <THEAD>
