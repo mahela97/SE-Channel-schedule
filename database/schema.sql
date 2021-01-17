@@ -132,6 +132,13 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`);
 ALTER TABLE `user` CHANGE `user_id` `user_id` INT(10)AUTO_INCREMENT;
 
+ALTER TABLE `user`
+ADD COLUMN `color` VARCHAR(255) AFTER `type`;
+
+ALTER TABLE `user`
+ADD COLUMN `pet` VARCHAR(255) AFTER `type`;
+
+
 --
 -- Constraints for dumped tables
 --
