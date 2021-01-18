@@ -1,0 +1,115 @@
+const { findUserByEmail, saveNewPassword } = require("../models/userModel");
+const {
+  userLoginValidation,
+  validatePassword,
+} = require("./validator/validate");
+const bcrypt = require("bcryptjs");
+
+module.exports = {
+  //RENDER LOGIN PAGE
+
+  loginPage: (req, res) => {
+    res.render("login", {
+      error: req.query.error,
+      email: req.query.email,
+    });
+  },
+
+  //LOGIN USER
+  loginUser: async (req, res) => {
+    const body = req.body;
+    const { error } = userLoginValidation(req.body);
+    if (error) {
+      return res.redirect(`login?error=${error}&email=${body.email}`);
+    }
+    const user = await findUserByEmail(body.email);
+    if (!user) {
+      return res.redirect(`login?error=User is not exist&email=${body.email}`);
+    }
+    const { email, password, type } = user;
+
+    const validPass = await bcrypt.compareSync(body.password, password);
+
+    if (!validPass) {
+      return res.redirect(
+        `login?error=Email or Password is incorrect
+        &email=${body.email}`
+      );
+    }
+    req.session.user_id = email;
+    req.session.type = type;
+    return res.redirect(`/`);
+  },
+
+  //LogOut user
+  logOut: (req, res) => {
+    req.session.user_id = null;
+    req.session.type = null;
+    return res.redirect("/login");
+  },
+
+  //RENDER RECOVER PAGE
+  recoverPage: (req, res) => {
+    return res.render("forgotpw");
+  },
+
+  //GET RECOVER EMAIL
+  getEmail: async (req, res) => {
+    const body = req.body;
+    const user = await findUserByEmail(body.Uname);
+    if (!user) {
+      return res.redirect(
+        `forgotpw?error=User is not exist&email=${body.Uname}`
+      );
+    }
+    req.session.email = user.email;
+    req.session.valid = false;
+    return res.redirect(`/check`);
+  },
+
+  //RENDER CHANGE PASSWORD
+  changePasswordPage: (req, res) => {
+    return res.render("changepw");
+  },
+
+  //CHANGE PASSWORD
+  changePassword: async (req, res) => {
+    const body = req.body;
+    const { error } = validatePassword(body);
+    if (error) {
+      return res.redirect(`changepw?error=Passwords do not match`);
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    body.newpass = await bcrypt.hash(body.newpass, salt);
+    body.email = req.session.email;
+    saveNewPassword(body, (err, result) => {
+      if (err) {
+        return res.redirect(`changepw?error=Error}`);
+      } else {
+        return res.redirect("/login");
+      }
+    });
+  },
+
+  //RENDER SECURITY CHECK
+  checkPage: (req, res) => {
+    return res.render("securitycheck");
+  },
+
+  //MATCH SECURITY QUESTIONS
+  matchQuestions: async (req, res) => {
+    const body = req.body;
+    const user = await findUserByEmail(req.session.email);
+    const { pet, color } = user;
+    const validPet = await bcrypt.compare(body.secq, pet);
+    const validColor = await bcrypt.compare(body.firstq, color);
+    console.log(validPet, validColor);
+    if (validPet && validColor) {
+      req.session.valid = true;
+      return res.redirect("/changepw");
+    } else {
+      return res.redirect(`forgotpw?error=Answers are not correct`);
+    }
+  },
+};

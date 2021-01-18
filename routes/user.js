@@ -1,33 +1,13 @@
 const router = require("express").Router();
 
-const {
-  createUser,
-  registerPage,
-  loginPage,
-  loginUser,
-  userHomePage,
-  logOut,
-} = require("../controllers/userController");
+const { userHomePage } = require("../controllers/userController");
 
-const { isLoggedin } = require("../middleware/isLogged");
-const { isNotLoggedIn } = require("../middleware/isNotLoggedIn");
+const { isLogged } = require("../middleware/isLogged");
 const channel = require("../controllers/channel");
-const { render } = require("ejs");
+
 //Homepage
-router.get("/", isLoggedin, userHomePage);
+router.get("/home", isLogged, userHomePage);
 
-//REGISTER
-router.get("/register", isNotLoggedIn, registerPage);
-router.post("/register", createUser);
-
-//LOGIN
-router.get("/login", isNotLoggedIn, loginPage);
-router.post("/login", loginUser);
-
-//LOGOUT
-router.get("/logout", logOut);
-router.get("/schedule", channel.getschedulel);
-router.post("/schedule", channel.schedulel);
 router.get("/timetable", channel.get_channel);
 
 router.get("/addfeedback", channel.get_program);
