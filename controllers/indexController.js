@@ -28,28 +28,30 @@ module.exports = {
       );
     }
     try {
-      const user = await findUserByEmail(body.email);
+      user = await findUserByEmail(body.email);
+      if (!user) {
+        return res.redirect(
+          `login?error=User is not exist&email=${body.email}`
+        );
+      }
+      const { email, password, type } = user;
+
+      const validPass = await bcrypt.compareSync(body.password, password);
+
+      if (!validPass) {
+        return res.redirect(
+          `login?error=Email or Password is incorrect
+        &email=${body.email}`
+        );
+      }
+      req.session.user_id = email;
+      req.session.type = type;
+      return res.redirect(`/`);
     } catch (err) {
       return res.redirect(
         `login?error=Cannot connect to the database. Try Again.&email=${body.email}`
       );
     }
-    if (!user) {
-      return res.redirect(`login?error=User is not exist&email=${body.email}`);
-    }
-    const { email, password, type } = user;
-
-    const validPass = await bcrypt.compareSync(body.password, password);
-
-    if (!validPass) {
-      return res.redirect(
-        `login?error=Email or Password is incorrect
-        &email=${body.email}`
-      );
-    }
-    req.session.user_id = email;
-    req.session.type = type;
-    return res.redirect(`/`);
   },
 
   //LogOut user
@@ -69,20 +71,19 @@ module.exports = {
     const body = req.body;
     try {
       const user = await findUserByEmail(body.Uname);
+      if (!user) {
+        return res.redirect(
+          `forgotpw?error=User is not exist&email=${body.Uname}`
+        );
+      }
+      req.session.email = user.email;
+      req.session.valid = false;
+      return res.redirect(`/check`);
     } catch (err) {
       return res.redirect(
         `forgotpw?error=Cannot connect to the database. Try Again&email=${body.Uname}`
       );
     }
-
-    if (!user) {
-      return res.redirect(
-        `forgotpw?error=User is not exist&email=${body.Uname}`
-      );
-    }
-    req.session.email = user.email;
-    req.session.valid = false;
-    return res.redirect(`/check`);
   },
 
   //RENDER CHANGE PASSWORD
@@ -124,19 +125,18 @@ module.exports = {
     const body = req.body;
     try {
       const user = await findUserByEmail(req.session.email);
+      const { pet, color } = user;
+      const validPet = await bcrypt.compare(body.secq, pet);
+      const validColor = await bcrypt.compare(body.firstq, color);
+      console.log(validPet, validColor);
+      if (validPet && validColor) {
+        req.session.valid = true;
+        return res.redirect("/changepw");
+      } else {
+        return res.redirect(`forgotpw?error=Answers are not correct`);
+      }
     } catch (err) {
       return res.redirect("/changepw?error=Cannot connect to the database");
-    }
-
-    const { pet, color } = user;
-    const validPet = await bcrypt.compare(body.secq, pet);
-    const validColor = await bcrypt.compare(body.firstq, color);
-    console.log(validPet, validColor);
-    if (validPet && validColor) {
-      req.session.valid = true;
-      return res.redirect("/changepw");
-    } else {
-      return res.redirect(`forgotpw?error=Answers are not correct`);
     }
   },
 };
