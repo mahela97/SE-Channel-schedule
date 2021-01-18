@@ -1,3 +1,5 @@
+
+
 CREATE TABLE `channel` (
   `channel_id` varchar(20) NOT NULL,
   `channel_name` varchar(20) DEFAULT NULL
@@ -10,7 +12,7 @@ CREATE TABLE `channel` (
 --
 
 CREATE TABLE `feedbacks` (
-  `user_id` varchar(20) DEFAULT NULL,
+  `user_id` int(10) DEFAULT NULL,
   `feedback_id` varchar(20) NOT NULL,
   `feedback` varchar(10000) DEFAULT NULL,
   `program_id` varchar(20) DEFAULT NULL
@@ -36,9 +38,7 @@ CREATE TABLE `programs` (
 --
 
 CREATE TABLE `staff` (
-  `staff_id` varchar(20) NOT NULL,
-  `email` varchar(20) DEFAULT NULL,
-  `password` varchar(20) DEFAULT NULL,
+  `user_id` int(10) NOT NULL,
   `channeld_id` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -49,7 +49,7 @@ CREATE TABLE `staff` (
 --
 
 CREATE TABLE `stared_program` (
-  `user_id` varchar(20) NOT NULL,
+  `user_id` int(10) NOT NULL,
   `program_id` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -73,7 +73,10 @@ CREATE TABLE `timeslot` (
 --
 
 CREATE TABLE `user` (
-  `user_id` varchar(20) NOT NULL,
+  `user_id` int(10) NOT NULL,
+  `type` varchar(20) DEFAULT NULL,
+  `first_name` varchar(20) DEFAULT NULL,
+  `last_name` varchar(20) DEFAULT NULL,
   `email` varchar(20) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -107,9 +110,7 @@ ALTER TABLE `programs`
 --
 -- Indexes for table `staff`
 --
-ALTER TABLE `staff`
-  ADD PRIMARY KEY (`staff_id`),
-  ADD KEY `channeld_id` (`channeld_id`);
+
 
 --
 -- Indexes for table `stared_program`
@@ -129,6 +130,14 @@ ALTER TABLE `timeslot`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`);
+ALTER TABLE `user` CHANGE `user_id` `user_id` INT(10)AUTO_INCREMENT;
+
+ALTER TABLE `user`
+ADD COLUMN `color` VARCHAR(255) AFTER `type`;
+
+ALTER TABLE `user`
+ADD COLUMN `pet` VARCHAR(255) AFTER `type`;
+
 
 --
 -- Constraints for dumped tables
@@ -152,7 +161,10 @@ ALTER TABLE `programs`
 -- Constraints for table `staff`
 --
 ALTER TABLE `staff`
+  ADD CONSTRAINT `staff_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
   ADD CONSTRAINT `staff_ibfk_1` FOREIGN KEY (`channeld_id`) REFERENCES `channel` (`channel_id`);
+  
+
 
 --
 -- Constraints for table `stared_program`
