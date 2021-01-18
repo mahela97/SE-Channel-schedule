@@ -25,7 +25,7 @@ module.exports = {
     const { error } = userRegisterValidation(req.body);
     if (error) {
       return res.redirect(
-        `register?error=${error.details[0].message}
+        `register?error=${error.details[0].message.toUpperCase()}
         &email=${req.body.email}
         &user_id=${req.body.user_id}`
       );
@@ -41,6 +41,10 @@ module.exports = {
         if (err.code == "ER_DUP_ENTRY") {
           return res.redirect(
             `register?error=Email is already exist&email=${body.email}&user_id=${body.user_id}`
+          );
+        } else {
+          return res.redirect(
+            `register?error=Cannot connect to the database. Try again.=${body.email}&user_id=${body.user_id}`
           );
         }
       } else {
