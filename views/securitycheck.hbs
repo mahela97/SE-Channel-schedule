@@ -9,7 +9,8 @@
 	<title>Broadcasting Cooperation</title>
 
 	<!-- Compressed Styles -->
-	<link href="css/slides.min.css" rel="stylesheet" type="text/css">
+  <link href="css/slides.min.css" rel="stylesheet" type="text/css">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">"
 
 	<!-- jQuery 3.3.1 -->
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
@@ -20,7 +21,155 @@
 
 	<!-- Fonts and Material Icons -->
 	<link rel="stylesheet" as="font" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,600,700|Material+Icons"/>
- 
+	<style>
+		BODY {
+  font-family: Trebuchet MS;
+  margin:20px;
+  background-color: #600040;
+}
+.favourite input{
+  display: none;
+}
+
+/* .favourite label{
+  cursor: pointer;
+
+}
+
+
+.favourite label::before{
+  content: '\f005';
+  font-family: fontAwesome;
+  position: relative;
+  font-size: 50px;
+  vertical-align: middle;
+  color: white;
+}
+
+.favourite label::after{
+  content: '\f005';
+  font-family: fontAwesome;
+  font-size: 50px;
+  vertical-align: middle;
+  color:yellow;
+  position:absolute;
+  /* top:0px; */
+  /* left: 75.9%;
+  opacity: 0;
+  transition: o.5s;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.favourite label:hover:after,
+.favourite label:hover~label:after,
+.favourite label:checked ~label:after{
+  opacity: 1;
+} */ 
+
+H1 {
+  text-align: center;
+  color: #FFFFFF;
+}
+/* .close{
+  position:absolute;
+  top:0px;
+
+} */
+.bg-model{
+  width: 100%;
+  height: 100%;
+  background-color:rgba(0,0,0,0.7);
+  /* opacity: inherit; */
+  position: absolute;
+  top:0px;
+  left: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display:none;
+}
+.model-content{
+  width:500px;
+  height:250px;
+  background-color: white;
+  border-radius: 4px;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+}
+.ProgramList {
+  width:100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.ProgramList THEAD{
+  color: #FFFFFF;
+  font-size: 20px;
+}
+
+.ProgramList TBODY {
+  background-color: #AAAAFF;
+}
+
+.ProgramList TD {
+  border: 1px solid black;
+  padding: 6px;
+  text-align: center;
+}
+.ProgramList TBODY TR TD:first-child {
+  background-color:cornflowerblue;
+  font-weight: bold;
+}
+
+
+
+.wrap{
+  width: 50%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.myTimetable {
+  width:100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.myTimetable THEAD{
+  color: #FFFFFF;
+}
+
+.myTimetable TBODY {
+  background-color: #AAAAFF;
+}
+
+.myTimetable TD {
+  border: 1px solid black;
+  padding: 6px;
+  text-align: center;
+}
+.myTimetable TBODY TR TD:first-child {
+  background-color: cornflowerblue;
+  font-weight: bold;
+}
+
+.break, .lunch {
+  background-color: #FF0066 !important;
+  font-style: italic;
+}
+
+.subject {
+  font-size: 10pt;
+  margin-bottom:4px;
+}
+
+.room {
+  font-size: 10pt;
+  font-style: italic;
+}
+</style>
 </head>
 <body class="slides horizontal simplifiedMobile animated">
 		
@@ -61,20 +210,19 @@
 
 </svg>
 
-<!-- Panel Top #05 -->
+<!-- Panel Top #05 >
 <nav class="panel top">
   <div class="sections desktop">
-    
-    <div class="left"><a href="#" title="Slides Framework"><svg style="width:82px;height:24px"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#logo"></use></svg></a></div>
-    <div class="center">
-     <!---- <ul class="menu">
-        <li><a href="#">Home-staff</a></li>
+    <div class="left"><a href="login" title="LogIn">Log in</a></div>
+	<div class="center">
+      <ul class="menu">
+        <li><a href="#">Home-user</a></li>
         
-        <li><a href="#features">Schedule</a></li>
-        <li><a href="#case">Channel Management</a></li>
+        <li><a href="#features">Time table</a></li>
+        <li><a href="#case">Favourites/Feedback</a></li>
         <li><a href="#pricing">Account</a></li>
         <li><a href="#download">Account Updates</a></li>
-      </ul> -->
+      </ul>
     </div>
    
   </div>
@@ -82,9 +230,9 @@
     <div class="left"><a href="#" title="Slides Framework"><svg style="width:82px;height:24px"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#logo"></use></svg></a></div>
     <div class="right"><span class="button actionButton sidebarTrigger" data-sidebar-id="1"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu"></use></svg></span</div>
   </div>
-</nav>
+</nav-->
 
-<!-- Sidebar>
+<!-- Sidebar >
 <nav class="sidebar" data-sidebar-id="1">
   <div class="close"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use></svg></div>
   <div class="content">
@@ -111,39 +259,52 @@
   </div>
 </nav-->
 
-<!-- Slide 4  -->
-<section class="slide fade-6 kenBurns">
+
+<!-- Slide 4 -->
+<section class="slide fade-6 kenBurns" >
   <div class="content">
     <div class="container">
-    <div class="wrap">
-      <div class="fix-12-12">
-      <form method=POST>
-       
-              <h1 style="text-align: center;"><b>Forgot Password</b></h1>
-              <label><b>Email or Username   
-              </b>    
-              </label><br><br>    
-              <input type="text" style="width: 100%;
-              padding: 15px;
-              margin: 5px 0 22px 0;
-              display: inline-block;
-              border: none;
-              background: #f1f1f1;" name="Uname" id="Uname" placeholder="Enter Username or Email">    
-              <br><br>    
-             
-              <button type="submit" style="background-color:cadetblue;
-              color: white;
-              padding: 16px 20px;
-              margin: 8px 0;
-              border: none;
-              cursor: pointer;
-              width: 100%;
-              opacity: 0.9;" class="logbtn">Send Reset Link</button>
-              <br><br>    
-               Back to <a href="/login">Login</a>   
-          </form>  
+      <div class="wrap">
+          <div class="fix-12-12">
+        <form method=POST >
+            <h1 style="text-align: center;"><b>Security Measure</b></h1>
+            <label for="firstq"><b>What is your favourite color?</b></label><br><br>
+            <input type="text" style="width: 50%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;" name="firstq" id="firstq" required value={{firstq}}><br><br>
+
+            <label for="secq"><b>What is your pet's name?</b></label><br><br>
+            <input type="text" style="width: 50%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;" name="secq" id="secq" required value={{secq}}><br><br>
+
+
+            
+        <div><button type="submit" style="background-color:cadetblue;
+          color: white;
+          padding: 16px 20px;
+          margin: 8px 0;
+          border: none;
+          cursor: pointer;
+          width: 50%;
+          opacity: 0.9;"
+           class="registerbtn">Submit</button></div>
+            
           </div>
-	 </div>
+          {{#if error}}
+          <div>{{error}} </div>
+          {{/if}}
+          
+          </div> 
+        </form>
+        </div>
+      </div>
     </div>
   </div>
   <div class="background" style="background-image:url(assets/img/background/image-13.jpg)"></div>

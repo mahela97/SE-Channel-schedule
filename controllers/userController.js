@@ -1,9 +1,6 @@
-const {
-  createRegisteredUser,
-  findUserByEmail,
-} = require("../models/userModel");
+const { createRegisteredUser } = require("../models/userModel");
 
-const { registerValidation, loginValidation } = require("./validator/validate");
+const { userRegisterValidation } = require("./validator/validate");
 
 const bcrypt = require("bcryptjs");
 
@@ -11,46 +8,6 @@ module.exports = {
   //User Homepage
   userHomePage: (req, res) => {
     res.render("user/home-user");
-  },
-
-  //Rendering login page
-  loginPage: (req, res) => {
-    res.render("login", {
-      error: req.query.error,
-      email: req.query.email,
-    });
-  },
-
-  //Login page
-  loginUser: async (req, res) => {
-    const body = req.body;
-    console.log(body);
-    const { error } = loginValidation(req.body);
-    if (error) {
-      return res.redirect(`login?error=${error}&email=${body.email}`);
-    }
-    const user = await findUserByEmail(body.email);
-    if (!user) {
-      return res.redirect(`login?error=User is not exist&email=${body.email}`);
-    }
-    const { email, password } = user;
-
-    const validPass = await bcrypt.compareSync(body.password, password);
-
-    if (!validPass) {
-      return res.redirect(
-        `login?error=Email or Password is incorrect
-        &email=${body.email}`
-      );
-    }
-    req.session.user_id = body.email;
-    return res.redirect(`/`);
-  },
-
-  //LogOut user
-  logOut: (req, res) => {
-    req.session.user_id = null;
-    return res.redirect("/login");
   },
 
   //Rendering the register page
@@ -65,7 +22,7 @@ module.exports = {
   //Registering a user
   createUser: async (req, res) => {
     const body = req.body;
-    const { error } = registerValidation(req.body);
+    const { error } = userRegisterValidation(req.body);
     if (error) {
       return res.redirect(
         `register?error=${error.details[0].message}
@@ -76,6 +33,8 @@ module.exports = {
 
     const salt = await bcrypt.genSalt(10);
     body.password = await bcrypt.hash(body.password, salt);
+    body.firstq = await bcrypt.hash(body.firstq, salt);
+    body.secq = await bcrypt.hash(body.secq, salt);
 
     createRegisteredUser(body, (err, result) => {
       if (err) {

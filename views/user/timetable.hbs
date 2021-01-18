@@ -9,16 +9,32 @@
   <!-- Page Title -->
   <title>Broadcasting Cooperation</title>
 
+  <!--bootstrap css-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!--bootsrap js-->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+
   <!-- Compressed Styles -->
-  <link href="../css/slides.min.css" rel="stylesheet" type="text/css">
+  <link href="/css/slides.min.css" rel="stylesheet" type="text/css">
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">"
 
   <!-- jQuery 3.3.1 -->
   <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
-  <script src="../js/jquery.min.js"></script>
+  <script src="/js/jquery.min.js"></script>
 
   <!-- Compressed Scripts -->
-  <script src="../js/slides.min.js" type="text/javascript"></script>
+  <script src="/js/slides.min.js" type="text/javascript"></script>
 
   <!-- Fonts and Material Icons -->
   <link rel="stylesheet" as="font"
@@ -114,22 +130,12 @@
       font-size: 20px;
     }
 
-    .ProgramList TBODY {
-      background-color: #AAAAFF;
-    }
 
     .ProgramList TD {
-      border: 1px solid black;
+
       padding: 6px;
       text-align: center;
     }
-
-    .ProgramList TBODY TR TD:first-child {
-      background-color: cornflowerblue;
-      font-weight: bold;
-    }
-
-
 
 
 
@@ -141,21 +147,6 @@
 
     .myTimetable THEAD {
       color: #FFFFFF;
-    }
-
-    .myTimetable TBODY {
-      background-color: #AAAAFF;
-    }
-
-    .myTimetable TD {
-      border: 1px solid black;
-      padding: 6px;
-      text-align: center;
-    }
-
-    .myTimetable TBODY TR TD:first-child {
-      background-color: cornflowerblue;
-      font-weight: bold;
     }
 
     .break,
@@ -173,6 +164,143 @@
       font-size: 10pt;
       font-style: italic;
     }
+
+    .channel {
+      position: absolute;
+      left: 10px;
+      font-weight: bold;
+      font-size: 18px;
+      text-shadow: 2px 2px 10px black;
+    }
+
+    .card_channel {
+      height: 275px;
+      width: 400px;
+      box-shadow: 6px 6px 3px black;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 20px;
+    }
+
+    .container {
+      width: 80% !important;
+      margin-top: 100px;
+    }
+
+
+
+    tbody td {
+      vertical-align: middle;
+    }
+
+    .wrap {
+      width: 100% !important;
+    }
+
+    thead tr th {
+      text-align: center;
+      font-size: 15px;
+      text-shadow: 1px 1px 1px black;
+    }
+
+    .heading {
+      text-shadow: 2px 2px 5px white;
+      text-decoration: underline;
+      margin-bottom: 25px;
+    }
+
+    .channel_col {
+      padding-bottom: 75px;
+      margin-bottom: 5opx;
+
+    }
+
+    .card_channel {
+      filter: grayscale(50%);
+      -webkit-filter: grayscale(50%);
+      -o-filter: grayscale(50%);
+      -moz-filter: grayscale(50%);
+
+    }
+
+    .card_channel:hover {
+      filter: grayscale(0%);
+      -webkit-filter: grayscale(0%);
+      -o-filter: grayscale(0%);
+      -moz-filter: grayscale(0%);
+
+    }
+
+    .c_body:hover::after {
+      content: "Click the button";
+      margin: auto;
+
+    }
+
+    .button:hover {
+      background-color: black;
+      color: white;
+    }
+
+    table {
+      border-collapse: collapse;
+
+    }
+
+    td {
+      border: none;
+      height: 30px;
+    }
+
+    th {
+      background-color: #202020;
+      color: white;
+      text-decoration: none;
+      border-color: white;
+      height: 30px;
+      vertical-align: middle;
+    }
+
+    tbody tr td {
+      padding-left: 10px;
+    }
+
+    tr td:first-child {
+      background-color: #efefef !important;
+      color: black;
+      text-align: center;
+    }
+
+    tr:nth-child(even) {
+      color: black;
+      background-color: #eee;
+    }
+
+    tbody tr:nth-child(odd) {
+      color: black;
+      background-color: white;
+    }
+
+    tfoot tr td {
+      background-color: black !important;
+      color: white;
+      font-weight: bolder;
+      text-align: center;
+      vertical-align: middle;
+
+    }
+
+    /* Small devices (landscape phones, 576px and up)*/
+    @media (max-width: 576px) {}
+
+    /* Medium devices (tablets, 768px and up)*/
+    @media (max-width: 768px) {}
+
+    /* Large devices (desktops, 992px and up)*/
+    @media (max-width: 992px) {}
+
+    /* Extra large devices (large desktops, 1200px and up)*/
+    @media (min-width: 1200px) {}
   </style>
 </head>
 
@@ -261,14 +389,24 @@
   <!-- Panel Top #05 -->
   <nav class="panel top">
     <div class="sections desktop">
-      <div class="left"><a href="login" title="Logout">Log out</a></div>
+      <div class="left"><a href="../login" title="Logout">Log out</a></div>
       <div class="center">
         <ul class="menu">
-          <li><a href="home-user">Home-user</a></li>
-          <li><a href="#">Time table</a></li>
-          <li><a href="addfeedback">Favourites/Feedback</a></li>
-          <li><a href="account-user">Account</a></li>
-          <li><a href="accountupdates-user">Account Updates</a></li>
+          <li>
+            <base href="/"><a href="home-user">Home-user</a>
+          </li>
+          <li>
+            <base href="/"><a href="#">Time table</a>
+          </li>
+          <li>
+            <base href="/"><a href="/user/addfeedback">Favourites/Feedback</a>
+          </li>
+          <li>
+            <base href="/"><a href="account-user">Account</a>
+          </li>
+          <li>
+            <base href="/"><a href="accountupdates-user">Account Updates</a>
+          </li>
         </ul>
       </div>
 
@@ -285,7 +423,6 @@
 
   <!-- Sidebar -->
   <nav class="sidebar" data-sidebar-id="1">
-
     <div class="close"><svg>
         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
       </svg></div>
@@ -293,13 +430,13 @@
 
       <ul class="mainMenu margin-top-3">
         <li>
-          <base href="/"><a href="/">Home-user</a>
+          <base href="/"><a href="home-user">Home-user</a>
         </li>
         <li>
           <base href="/"><a href="#">Time table</a>
         </li>
         <li>
-          <base href="/"><a href="addfeedback">Favourites/Feedback</a>
+          <base href="/"><a href="/user/addfeedback">Favourites/Feedback</a>
         </li>
         <li>
           <base href="/"><a href="account-user">Account</a>
@@ -353,21 +490,7 @@
 
 
           </div -->
-          <TABLE class="myTimetable">
-            <THEAD>
-              <tr>
-                {{#each channel.channel}}
-                <td>
-                  <div>
-                    <a class="nav-link" href="/timetable/{{this}}">
-                      {{this}}
-                    </a>
-                  </div>
-                </td>
-                {{/each}}
-              </tr>
-            </THEAD>
-          </TABLE>
+
 
           {{#if channel.timetable}}
           <H1>{{ch}} TV Schedule</H1>
@@ -953,6 +1076,30 @@
             </TBODY>
           </TABLE>
           {{/if}}
+          <br><br>
+          <div class="cards">
+            <div class="row ">
+              {{#each channel.channel}}
+              <div class="col channel_col">
+                <div class="card card_channel"
+                  style="background:url(../assets/img/cards/Channel_1.jpg); background-size :cover;  ">
+                  <div class="card-body">
+                    <span class="channel">
+                      {{this}}
+                    </span>
+                  </div>
+                  <a class=class="button c_body" href="/user/timetable/{{this}}">
+                    Goto>>
+                  </a>
+                </div>
+              </div>
+
+
+              {{/each}}
+
+
+            </div>
+          </div>
         </div>
       </div>
     </div>
