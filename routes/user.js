@@ -8,6 +8,8 @@ const channel = require("../controllers/channel");
 //Homepage
 router.get("/home", isLogged, userHomePage);
 
+router.get("/timetable", channel.get_channel);
+
 router.get("/addfeedback", channel.get_program);
 router.get("/timetable/:id", channel.get_channel);
 router.get("/addfeedback/:id", channel.get_program);
