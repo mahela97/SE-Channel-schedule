@@ -34,10 +34,8 @@ module.exports = {
       [data.newpass, data.email],
       (err, result) => {
         if (err) {
-          console.log(err);
           return callBack(err);
         } else {
-          console.log(result);
           return callBack(null, result);
         }
       }
@@ -52,7 +50,7 @@ module.exports = {
         [email],
         (err, result) => {
           if (err) {
-            console.log(err);
+            console.log(err, "Error here");
             reject(err);
           } else {
             console.log(result);

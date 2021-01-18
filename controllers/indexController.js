@@ -20,9 +20,20 @@ module.exports = {
     const body = req.body;
     const { error } = userLoginValidation(req.body);
     if (error) {
-      return res.redirect(`login?error=${error}&email=${body.email}`);
+      console.log(error);
+      return res.redirect(
+        `login?error=${error.details[0].message.toUpperCase()}&email=${
+          body.email
+        }`
+      );
     }
-    const user = await findUserByEmail(body.email);
+    try {
+      const user = await findUserByEmail(body.email);
+    } catch (err) {
+      return res.redirect(
+        `login?error=Cannot connect to the database. Try Again.&email=${body.email}`
+      );
+    }
     if (!user) {
       return res.redirect(`login?error=User is not exist&email=${body.email}`);
     }
@@ -56,7 +67,14 @@ module.exports = {
   //GET RECOVER EMAIL
   getEmail: async (req, res) => {
     const body = req.body;
-    const user = await findUserByEmail(body.Uname);
+    try {
+      const user = await findUserByEmail(body.Uname);
+    } catch (err) {
+      return res.redirect(
+        `forgotpw?error=Cannot connect to the database. Try Again&email=${body.Uname}`
+      );
+    }
+
     if (!user) {
       return res.redirect(
         `forgotpw?error=User is not exist&email=${body.Uname}`
@@ -83,13 +101,17 @@ module.exports = {
     const salt = await bcrypt.genSalt(10);
     body.newpass = await bcrypt.hash(body.newpass, salt);
     body.email = req.session.email;
-    saveNewPassword(body, (err, result) => {
-      if (err) {
-        return res.redirect(`changepw?error=Error}`);
-      } else {
-        return res.redirect("/login");
-      }
-    });
+    try {
+      saveNewPassword(body, (err, result) => {
+        if (err) {
+          return res.redirect(`changepw?error=Error`);
+        } else {
+          return res.redirect("/login");
+        }
+      });
+    } catch (err) {
+      return res.redirect(`changepw?error=Cannot connect to the database`);
+    }
   },
 
   //RENDER SECURITY CHECK
@@ -100,7 +122,12 @@ module.exports = {
   //MATCH SECURITY QUESTIONS
   matchQuestions: async (req, res) => {
     const body = req.body;
-    const user = await findUserByEmail(req.session.email);
+    try {
+      const user = await findUserByEmail(req.session.email);
+    } catch (err) {
+      return res.redirect("/changepw?error=Cannot connect to the database");
+    }
+
     const { pet, color } = user;
     const validPet = await bcrypt.compare(body.secq, pet);
     const validColor = await bcrypt.compare(body.firstq, color);
