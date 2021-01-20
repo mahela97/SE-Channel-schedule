@@ -130,17 +130,7 @@ module.exports = {
   },
   scheduleChannel: (details, channel_id) => {
     
-    pool.query(
-      ` SELECT * FROM programs where  channel_id=? and program_id=?;`,
-      [channel_id, details.programme_id],
-      (err, result) => {
-        if (err) {
-          console.log(err);
-          reject(err);
-        } else {
-          console.log(result);
-          if (result.length > 0) {
-            pool.query(
+ pool.query(
               "select * from `programtime` where `timeslot_id`=? and `channel_id`=? and `day_id`=?;",
               [details.time,channel_id, details.day],
               (err, result) => {
@@ -188,75 +178,7 @@ module.exports = {
                 }
               }
             );
-          } else {
-            pool.query(
-              `INSERT INTO programs (program_id,channel_id, program_name) VALUES (?,?, ?);`,
-              [details.programme_id, channel_id, details.programme],
-              (err, result) => {
-                if (err) {
-                  // return callBack(err);
-                  console.log(err);
-                } else {
-                  pool.query(
-                    "select * from `programtime` where `timeslot_id`=? and `channel_id`=? and `day_id`=?;",
-                    [details.time, channel_id, details.day],
-                    (err, result) => {
-                      if (err) {
-                      } else {
-                        if (result.length > 0) {
-                          pool.query(
-                            "update `programtime` set `program_id`=?,`day_id`=?,`timeslot_id`=?,`channel_id`=? WHERE    `timeslot_id`=? and `channel_id`=? and `day_id`=?;",
-                            [
-                              details.programme_id,
-                              details.day,
-                              details.time,
-                              channel_id,
-                              details.time,
-                              channel_id,
-                              details.day,
-                            ],
-                            (err, result) => {
-                              if (err) {
-                                console.log(err);
-                                // return callBack(err);
-                              } else {
-                                console.log(result);
-                                // return callBack(null, result);
-                              }
-                            }
-                          );
-                        } else {
-                          pool.query(
-                            "INSERT INTO `programtime`(`program_id`, `day_id`, `timeslot_id`,`channel_id`) VALUES (?,?,?,?);",
-                            [
-                              details.programme_id,
-                              details.day,
-                              details.time,
-                              channel_id,
-                            ],
-                            (err, result) => {
-                              if (err) {
-                                console.log(err);
-                                // return callBack(err);
-                              } else {
-                                console.log(result);
-                                // return callBack(null, result);
-                              }
-                            }
-                          );
-                        }
-                      }
-                    }
-                  );
 
-                  //   return callBack(null, result);
-                }
-              }
-            );
-          }
-        }
-      }
-    );
   },
   getTimeTable: (channelname) => {
     return new Promise((resolve, reject) => {
@@ -531,4 +453,19 @@ module.exports = {
       });
     });
   },
+  addProgram: (details,channel_id) => {
+     
+            pool.query(
+              `INSERT INTO programs (channel_id, program_name) VALUES (?, ?);`,
+              [channel_id, details],
+              (err, result) => {
+                if (err) {
+                  
+                  console.log(err);
+                } else {
+               
+        }
+      }
+    );
+   },
 };

@@ -165,7 +165,7 @@
   <!-- Panel Top #05 -->
   <nav class="panel top">
     <div class="sections desktop">
-      <div class="left"><a href="../login.hbs" title="Logout">Log out</a></div>
+      <div class="left"><a href="login" title="Logout">Log out</a></div>
       <div class="center">
         <ul class="menu">
           <li><a href="home-staff">Home-staff</a></li>
@@ -228,6 +228,25 @@
         <div class="wrap">
           <H1>Update Channel B TV Schedule</H1>
           <br><br>
+
+          <form action="/staff/AddProgram">
+            <span class="input">&emsp;&emsp;ADD Programme:&emsp;</span><input type="text" style="width: 25%;
+                      padding: 15px;
+                      margin: 5px 0 22px 0;
+                      display: inline-block;
+                      border: none;
+                      background: #f1f1f1;" placeholder="Enter Programme name" name="programme" id="programme"
+              required>
+            <button type="submit" style="background-color:rgb(114, 140, 141);
+          color: white;
+          padding: 16px 20px;
+          margin: 8px 0;
+          border: none;
+          cursor: pointer;
+          width: 15%;
+          opacity: 0.9;" class="registerbtn">Update</button>
+          </form>
+          <br><br>
           <form id="add-form" action="/staff/schedule" method="post">
 
             <!-- Description Line -->
@@ -248,7 +267,8 @@
 
             </select>
 
-            <span class="input">&emsp;&emsp;Day:&emsp;</span><select name="day" style="width: 15%;
+            <span class="input">&emsp;&emsp;Day:&emsp;</span>
+            <select name="day" style="width: 15%;
           padding: 15px;
           margin: 5px 0 22px 0;
           display: inline-block;
@@ -263,20 +283,27 @@
 
               {{/each}}
             </select>
-            <span class="input">&emsp;&emsp;Programme:&emsp;</span><input type="text" style="width: 25%;
-          padding: 15px;
-          margin: 5px 0 22px 0;
-          display: inline-block;
-          border: none;
-          background: #f1f1f1;" placeholder="Enter Programme name" name="programme" id="programme" required>
 
 
-            <span class="input">&emsp;&emsp;Programme Id:&emsp;</span><input type="text" style="width: 25%;
-            padding: 15px;
-            margin: 5px 0 22px 0;
-            display: inline-block;
-            border: none;
-            background: #f1f1f1;" placeholder="Enter Programme id" name="programme_id" id="programme_id" required>
+            <span class="input">&emsp;&emsp;Program:&emsp;</span>
+            <select name="programme_id" style="width: 15%;
+                      padding: 15px;
+                      margin: 5px 0 22px 0;
+                      display: inline-block;
+                      border: none;
+                      background: #f1f1f1;">
+              {{#each channel.programs}}
+              <div>
+
+                <option value="{{this.program_id}}">{{this.program_name}}</option>
+
+              </div>
+
+              {{/each}}
+            </select>
+
+
+
             <br><br>
 
             <!-- Button -->

@@ -37,7 +37,7 @@
   <script src="/js/slides.min.js" type="text/javascript"></script>
 
   <!-- Fonts and Material Icons -->
-  <link rel="/stylesheet" as="font"
+  <link rel="stylesheet" as="font"
     href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,600,700|Material+Icons" />
   <style>
     BODY {
@@ -145,18 +145,30 @@
       font-size: 20px;
     }
 
-    .ProgramList TBODY {
-      background-color: #AAAAFF;
+
+    .ProgramList TBODY {}
+
+    .button {
+      background-color: #202020;
+    }
+
+    .button:hover {
+      background-color: black;
     }
 
     .ProgramList TD {
-      border: 1px solid black;
+      border: none;
       padding: 6px;
       text-align: center;
     }
 
-    .ProgramList TBODY TR TD:first-child {
-      background-color: cornflowerblue;
+    .ProgramList TBODY TR TD:not(:nth-child(3)) {
+      background-color: #343a40;
+      font-weight: bold;
+    }
+
+    .ProgramList TBODY TR TD:last-child {
+      background-color: none !important;
       font-weight: bold;
     }
 
@@ -227,10 +239,12 @@
 
     .container {
       width: 80% !important;
-      margin-top: 100px;
+
     }
 
-
+    td {
+      width: 100%;
+    }
 
     tbody td {
       vertical-align: middle;
@@ -279,10 +293,58 @@
 
     }
 
+    td {
+      word-wrap: break-word !important;
+    }
+
+
+
+    .feed {
+      width: 100%;
+      padding: 15px;
+      margin: 5px 0 22px 0;
+      display: inline-block;
+      border: none;
+      background: #f1f1f1;
+    }
+
 
 
     /* Small devices (landscape phones, 576px and up)*/
-    @media (max-width: 576px) {}
+    @media (max-width: 576px) {
+
+      .card_channel {
+        width: 250px;
+        height: 200px;
+      }
+
+      table {
+        width: 100%;
+      }
+
+      .c_body.c_body:hover::after {
+        padding: 0px;
+        content: " click";
+      }
+
+      .heading {
+        font-size: 1.5em;
+        font-weight: bolder;
+      }
+
+      td button {
+        padding: 0px 5px 0px 5px !important;
+        height: 50px;
+        font-size: 12px !important;
+
+      }
+
+      td {
+        font-size: 15px;
+      }
+
+
+    }
 
     /* Medium devices (tablets, 768px and up)*/
     @media (max-width: 768px) {
@@ -395,16 +457,24 @@
       <div class="left"><a href="login" title="Logout">Log out</a></div>
       <div class="center">
         <ul class="menu">
-          <li><a href="home-user">Home-user</a></li>
+          <li>
+            <base href="/"><a href="home-user">Home-user</a>
+          </li>
           <li>
             <base href="/"><a href="/user/timetable">Time table</a>
           </li>
-          <li><a href="#">Favourites/Feedback</a></li>
-          <li><a href="account-user">Account</a></li>
-          <li><a href="accountupdates-user">Account Updates</a></li>
+          <li>
+            <base href="/"><a href="#">Favourites/Feedback</a>
+          </li>
+          <li>
+            <base href="/"><a href="account-user">Account</a>
+          </li>
+          <li>
+            <base href="/"><a href="accountupdates-user">Account Updates</a>
+          </li>
+
         </ul>
       </div>
-
     </div>
     <div class="sections compact hidden">
       <div class="left"><a href="#" title="Slides Framework"><svg style="width:82px;height:24px">
@@ -424,22 +494,11 @@
     <div class="content">
 
       <ul class="mainMenu margin-top-3">
-        <li>
-          <base href="/"><a href="home-user">Home-user</a>
-        </li>
-        <li>
-          <base href="/"><a href="/user/timetable">Time table</a>
-        </li>
-        <li>
-          <base href="/"><a href="#">Favourites/Feedback</a>
-        </li>
-        <li>
-          <base href="/"><a href="account-user">Account</a>
-        </li>
-        <li>
-          <base href="/"><a href="accountupdates-user">Account Updates</a>
-        </li>
-
+        <li><a href="home-user.html">Home-user</a></li>
+        <li><a href="timetable.html">Time table</a></li>
+        <li><a href="#">Favourites/Feedback</a></li>
+        <li><a href="account-user.html">Account</a></li>
+        <li><a href="accountupdates-user.html">Account Updates</a></li>
       </ul>
       <ul class="subMenu small opacity-8">
         <li><a href="#">Our Services</a></li>
@@ -460,22 +519,39 @@
       </ul>
     </div>
   </nav>
+
+
   <!-- Slide 3 -->
   <section class="slide fade-6 kenBurns" data-name="case">
-
     <div class="content">
       <div class="container">
         <div class="wrap">
 
 
+          <!-- Channel Cards start-->
+
+          <!-- Channel Cards start end-->
 
 
-
+          <!-- feedback table start-->
 
           {{#if ch}}
-          <H1>{{ch}} TV Program List</H1>
-          <form action="" id="fm"></form>
+          <H1 class="heading">{{ch}} TV Program List</H1>
+
+
           <TABLE class="ProgramList">
+
+            <colgroup>
+              <col span="1" style="width:23%">
+              </col>
+              <col span="1" style="width:50%">
+              </col>
+              <col span="1" style="width:12%">
+              </col>
+              <col span="1" style="width:15%">
+              </col>
+            </colgroup>
+
             <THEAD>
               <TR>
                 <TH>Program</TH>
@@ -484,7 +560,9 @@
                 <TH></TH>
               </TR>
             </THEAD>
+
             <TBODY>
+
               {{#each channel.programTable}}
 
               <form action="" method="POST">
@@ -494,12 +572,8 @@
                   </TD>
                   <TD>
 
-                    <input type="text" style="width: 100%;
-                                padding: 15px;
-                                margin: 5px 0 22px 0;
-                                display: inline-block;
-                                border: none;
-                                background: #f1f1f1;" name="addfeedback" id="addfeedback" placeholder="add feedback">
+                    <input type="text" class="feed" style="" name="addfeedback" id="addfeedback"
+                      placeholder="add feedback">
                   </TD>
                   <td>
                     {{#if this.fav}}
@@ -510,40 +584,39 @@
                     {{/if}}
                     <label for="fav{{this.id}}">&#10038;</label>
                   </td>
-                  <td>
-                    <button class="button" type="submit" style="background-color: royalblue;">submit</button>
+                  <td style="background:none">
+                    <button class="button" type="submit">submit</button>
                   </td>
                 </TR>
               </form>
 
-
               {{/each}}
 
-
             </TBODY>
-          </TABLE><br><br>
+          </TABLE>
+
           {{/if}}
 
+          <!-- feedback table start-->
           <div class="cards">
             <div class="row ">
               {{#each channel.channel}}
+
               <div class="col channel_col">
                 <div class="card card_channel"
-                  style="background:url(../assets/img/cards/Channel_1.jpg); background-size :cover;  ">
+                  style="background:url(/assets/img/cards/Channel_1.jpg); background-size :cover;  ">
                   <div class="card-body">
                     <span class="channel">
                       {{this}}
                     </span>
                   </div>
-                  <a class=class="button c_body" href="/user/addfeedback/{{this}}">
+                  <a class="button c_body" href="/user/addfeedback/{{this}}">
                     Goto>>
                   </a>
                 </div>
               </div>
 
-
               {{/each}}
-
 
             </div>
           </div>
@@ -552,19 +625,19 @@
     </div>
     <div class="background" style="background-image:url(../assets/img/background/image-33.jpg)"></div>
   </section>
+
+
   <!-- Panel Bottom #01 -->
   <nav class="panel bottom forceMobileView">
     <div class="sections desktop">
       <div class="left"><a href="#" class="opacity-8">Design by <a href="https://freehtml5.co" target="_blank">SE Group
             10</a></div>
     </div>
-    </div>
   </nav>
-
-
 
   <!-- Loading Progress Bar -->
   <div class="progress-bar blue"></div>
+
 
 </body>
 
