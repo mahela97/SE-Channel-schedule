@@ -137,7 +137,9 @@
       text-align: center;
     }
 
-
+    table {
+      word-wrap: break-word;
+    }
 
     .myTimetable {
       width: 100%;
@@ -184,7 +186,6 @@
 
     .container {
       width: 80% !important;
-      margin-top: 100px;
     }
 
 
@@ -207,6 +208,8 @@
       text-shadow: 2px 2px 5px white;
       text-decoration: underline;
       margin-bottom: 25px;
+      font-size: 2em;
+      font-weight: bolder;
     }
 
     .channel_col {
@@ -220,7 +223,13 @@
       -webkit-filter: grayscale(50%);
       -o-filter: grayscale(50%);
       -moz-filter: grayscale(50%);
+      background: url(../assets/img/cards/Channel_1.jpg);
+      background-size: cover;
 
+    }
+
+    .card_channel:nth-child(even) {
+      background-image: url(../assets/img/cards/radio2.jpg) !important;
     }
 
     .card_channel:hover {
@@ -246,6 +255,7 @@
       border-collapse: collapse;
 
     }
+
 
     td {
       border: none;
@@ -287,11 +297,41 @@
       font-weight: bolder;
       text-align: center;
       vertical-align: middle;
+      padding-left: 10px;
+      padding-right: 10px;
 
     }
 
+    /*
+table{
+
+overflow-x:scroll;
+
+}
+*/
+
     /* Small devices (landscape phones, 576px and up)*/
-    @media (max-width: 576px) {}
+    @media (max-width: 576px) {
+
+      .card_channel {
+        width: 250px;
+        height: 200px;
+      }
+
+      table {
+        width: 100%;
+      }
+
+      .c_body.c_body:hover::after {
+        padding: 0px;
+        content: " click";
+      }
+
+      .heading {
+        font-size: 1.5em;
+        font-weight: bolder;
+      }
+    }
 
     /* Medium devices (tablets, 768px and up)*/
     @media (max-width: 768px) {}
@@ -389,7 +429,7 @@
   <!-- Panel Top #05 -->
   <nav class="panel top">
     <div class="sections desktop">
-      <div class="left"><a href="../login" title="Logout">Log out</a></div>
+      <div class="left"><a href="login" title="Logout">Log out</a></div>
       <div class="center">
         <ul class="menu">
           <li>
@@ -407,6 +447,7 @@
           <li>
             <base href="/"><a href="accountupdates-user">Account Updates</a>
           </li>
+
         </ul>
       </div>
 
@@ -429,21 +470,11 @@
     <div class="content">
 
       <ul class="mainMenu margin-top-3">
-        <li>
-          <base href="/"><a href="home-user">Home-user</a>
-        </li>
-        <li>
-          <base href="/"><a href="#">Time table</a>
-        </li>
-        <li>
-          <base href="/"><a href="/user/addfeedback">Favourites/Feedback</a>
-        </li>
-        <li>
-          <base href="/"><a href="account-user">Account</a>
-        </li>
-        <li>
-          <base href="/"><a href="accountupdates-user">Account Updates</a>
-        </li>
+        <li><a href="home-user.html">Home-user</a></li>
+        <li><a href="#">Time table</a></li>
+        <li><a href="addfeedback.html">Favourites/Feedback</a></li>
+        <li><a href="account-user.html">Account</a></li>
+        <li><a href="accountupdates-user.html">Account Updates</a></li>
 
       </ul>
       <ul class="subMenu small opacity-8">
@@ -466,8 +497,7 @@
     </div>
   </nav>
   <!-- Slide 2 -->
-  <section class="slide fade-6 kenBurns" data-name="features">
-
+  <section class="slide fade-6 kenBurns" data-name="case">
     <div class="content">
       <div class="container">
         <div class="wrap">
@@ -486,14 +516,16 @@
               {{/each}}
 
             </select>
-
-
-
           </div -->
 
 
+
+          <!----- Channel Cards ---->
+
+
+
           {{#if channel.timetable}}
-          <H1>{{ch}} TV Schedule</H1>
+          <div class="heading"> {{ch}} TV Schedule</div>
 
           <TABLE class="myTimetable">
             <THEAD>
@@ -1074,44 +1106,60 @@
                 </TD>
               </TR>
             </TBODY>
-          </TABLE>
+            <TFOOT>
+              <TR>
+                <TD style="background-color: black!important;"></TD>
+                <TD>Monday</TD>
+                <TD>Tuesday</TD>
+                <Td>Wednesday</TD>
+                <TD>Thursday</TD>
+                <TD>Friday</TD>
+                <TD>Saturday</TD>
+                <TD>Sunday</TD>
+              </TR>
+            </TFOOT>
+
+          </TABLE><br><br>
           {{/if}}
-          <br><br>
+
           <div class="cards">
             <div class="row ">
               {{#each channel.channel}}
+
               <div class="col channel_col">
                 <div class="card card_channel"
-                  style="background:url(../assets/img/cards/Channel_1.jpg); background-size :cover;  ">
+                  style="background:url(/assets/img/cards/Channel_1.jpg); background-size :cover;  ">
                   <div class="card-body">
                     <span class="channel">
                       {{this}}
                     </span>
                   </div>
-                  <a class=class="button c_body" href="/user/timetable/{{this}}">
+                  <a class="button c_body" href="/user/timetable/{{this}}">
                     Goto>>
                   </a>
                 </div>
               </div>
 
-
               {{/each}}
-
 
             </div>
           </div>
+
         </div>
       </div>
     </div>
     <div class="background" style="background-image:url(../assets/img/background/image-77.jpg)"></div>
   </section>
+
+
+
   <!-- Panel Bottom #01 -->
   <nav class="panel bottom forceMobileView">
     <div class="sections desktop">
       <div class="left"><a href="#" class="opacity-8">Design by <a href="https://freehtml5.co" target="_blank">SE Group
             10</a></div>
     </div>
-    </div>
+
   </nav>
 
 

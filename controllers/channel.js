@@ -10,8 +10,11 @@ const {
   getprogramTable,
   addfeedback,
   getuserId,
+  addProgram,
 } = require("../models/userModel");
-const { findChannelbyId,}=require("../models/staffModel");
+const { findChannelbyId, findprogrambyChannelId, } = require("../models/staffModel");
+
+
 exports.get_channel = async (req, res) => {
   console.log(req.url);
   if (req.url != "/timetable") {
@@ -29,26 +32,39 @@ exports.get_channel = async (req, res) => {
 };
 
 exports.getschedulel = async (req, res) => {
-  const timeSlot = await gettimeslot();
+if (req.session.type === "staff") {
+   const timeSlot = await gettimeslot();
   const day = await getday();
   
   const userId = await getuserId(req.session.user_id);
  
   const ch_name =await findChannelbyId(userId);
   console.log(ch_name);
-  const timetable = await getTimeTable(ch_name.channel_name);
-  res.locals.channel = { timeslot: timeSlot, day: day, timetable: timetable };
+  const timetable = await getTimeTable(ch_name.channel_name); 
+
+  const programs = await findprogrambyChannelId(ch_name.channel_id);
+  console.log(programs);
+  res.locals.channel = { timeslot: timeSlot, day: day, timetable: timetable, programs:programs };
 
   res.render("staff/schedule");
+  } else {
+    res.redirect(`/login`);
+  }
+  
 };
 exports.schedulel = async (req, res) => {
-  console.log(req.session.user_id);
+  if (req.session.type === "staff") {
+    console.log(req.session.user_id);
   console.log(req.body);
   const userId = await getuserId(req.session.user_id);
   const channel_id = await findChannelbyId(userId);
   console.log(channel_id)
   await scheduleChannel(req.body,channel_id.channel_id);
   res.redirect("schedule");
+  } else {
+    res.redirect(`/login`);
+  }
+ 
 };
 exports.get_program = async (req, res) => {
   console.log(req.session.user_id);
@@ -68,8 +84,26 @@ exports.get_program = async (req, res) => {
 };
 
 exports.addfeedback = async (req, res) => {
-  console.log(req.body);
+  if (req.session.type === "user") {
+     console.log(req.body);
   const userId = await getuserId(req.session.user_id);
-  addfeedback(req.body, userId);
+  await addfeedback(req.body, userId);
   res.redirect("/user/"+req.url);
+  } else {
+    res.redirect(`/login`);
+  }
+ 
+};
+exports.AddProgram = async (req, res) => {
+  if (req.session.type === "staff") {
+    const queryObject = url.parse(req.url, true).query;
+  console.log(queryObject.programme);
+  const userId = await getuserId(req.session.user_id);
+  const channel_id = await findChannelbyId(userId);
+  await addProgram(queryObject.programme,channel_id.channel_id);
+ res.redirect("schedule");
+  } else {
+    res.redirect(`login`);
+  }
+ 
 };
