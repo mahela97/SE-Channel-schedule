@@ -28,7 +28,10 @@ module.exports = {
             reject(err);
           } else {
             console.log(result[0].channel_name);
-            resolve({ channel_id: result[0].channel_id, channel_name:result[0].channel_name });
+            resolve({
+              channel_id: result[0].channel_id,
+              channel_name: result[0].channel_name,
+            });
           }
         }
       );
@@ -41,21 +44,22 @@ module.exports = {
         ` SELECT * FROM programs WHERE channel_id=?;`,
         ChannelId,
         (err, result) => {
-           var ch = {};
+          var ch = {};
           if (err) {
             console.log(err);
             reject(err);
           } else {
-             for (j = 0; j < result.length; j++) {
-            var trendprod = "pro"+j;
-            var prodValue = { channelname: result[j].channel_name };
-            //result_len=result_len-1;
-            ch[trendprod] = { program_id: result[j].program_id, program_name:result[j].program_name };
-          }
+            for (j = 0; j < result.length; j++) {
+              var trendprod = "pro" + j;
+              var prodValue = { channelname: result[j].channel_name };
+              //result_len=result_len-1;
+              ch[trendprod] = {
+                program_id: result[j].program_id,
+                program_name: result[j].program_name,
+              };
+            }
 
-          resolve(ch);
-          
-           
+            resolve(ch);
           }
         }
       );
