@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const user = require("./user");
 const staff = require("./staff");
+const admin = require("./admin");
 const {
   loginPage,
   loginUser,
@@ -23,7 +24,15 @@ const { isValidate } = require("../middleware/isValidate");
 const { allowEmail } = require("../middleware/allowEmail");
 
 //INDEX
-router.get("/", isLogged, whatType);
+router.get(
+  "/",
+  (req, res, next) => {
+    console.log(req.session);
+    next();
+  },
+  isLogged,
+  whatType
+);
 
 //ACCOUNT RECOVERY
 router.get("/forgotpw", recoverPage);
@@ -34,23 +43,8 @@ router.get("/check", allowEmail, checkPage);
 router.post("/check", matchQuestions);
 
 //CHANGE PASSWORD RECOVER
-router.get(
-  "/changepw",
-  (req, res, next) => {
-    console.log("get");
-    next();
-  },
-  isValidate,
-  changePasswordPage
-);
-router.post(
-  "/changepw",
-  (req, res, next) => {
-    console.log("post");
-    next();
-  },
-  changePassword
-);
+router.get("/changepw", isValidate, changePasswordPage);
+router.post("/changepw", changePassword);
 
 //LOGIN
 router.get("/login", isNotLoggedIn, loginPage);
@@ -65,5 +59,6 @@ router.get("/logout", logOut);
 
 router.use("/user", user);
 router.use("/staff", staff);
+router.use("/admin", admin);
 
 module.exports = router;

@@ -1,4 +1,13 @@
+---------------------------------------------------------
+-- Table structure for admin
 
+
+CREATE TABLE `admin` (
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL
+);
+----------------------------------------------------------
 
 CREATE TABLE `channel` (
   `channel_id` varchar(20) NOT NULL,
@@ -85,11 +94,18 @@ CREATE TABLE `user` (
 -- Indexes for dumped tables
 --
 
+--Indexes for admin table
+
+ALTER TABLE `admin`
+  ADD PRIMARY KEY(`email`);
+
+
 --
 -- Indexes for table `channel`
 --
 ALTER TABLE `channel`
   ADD PRIMARY KEY (`channel_id`);
+  
 
 --
 -- Indexes for table `feedbacks`
