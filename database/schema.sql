@@ -1,13 +1,19 @@
----------------------------------------------------------
--- Table structure for admin
 
+CREATE DATABASE TV2;
+
+USE TV2;
+
+
+--
+-- Table structure for TABLE `admin`
+--
 
 CREATE TABLE `admin` (
-  `email` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL UNIQUE,
   `password` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL
 );
-----------------------------------------------------------
+-- --------------------------------------------------------
 
 CREATE TABLE `channel` (
   `channel_id` varchar(20) NOT NULL,
