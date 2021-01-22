@@ -9,6 +9,7 @@ const {
   getChannel,
   getChannelById,
   addChannel,
+  getAllchannel,
 } = require("../models/adminModel");
 const bcrypt = require("bcryptjs");
 const { findUserByEmail } = require("../models/userModel");
@@ -121,12 +122,15 @@ module.exports = {
   },
 
   //RENDER ACCOUNT UPDATES
-  accountUpdatePage: (req, res) => {
+  accountUpdatePage:  (req, res) => {
     return res.render("admin/accountupdates");
   },
 
   //RENDER ADD STAFF ACCOUNT
-  addStaffPage: (req, res) => {
+  addStaffPage: async (req, res) => {
+    const channels =await getAllchannel();
+    console.log(channels);
+    res.locals.channel = { channel: channels};
     return res.render("admin/account", {
       error: req.query.error,
       email: req.query.email,
