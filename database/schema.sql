@@ -24,7 +24,7 @@ CREATE TABLE `feedbacks` (
   `user_id` int(10) DEFAULT NULL,
   `feedback_id` varchar(20) NOT NULL,
   `feedback` varchar(10000) DEFAULT NULL,
-  `program_id` varchar(20) DEFAULT NULL
+  `program_id` int(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -34,10 +34,9 @@ CREATE TABLE `feedbacks` (
 --
 
 CREATE TABLE `programs` (
-  `program_id` varchar(20) NOT NULL,
+  `program_id` int(20) NOT NULL,
   `channel_id` varchar(20) DEFAULT NULL,
-  `program_name` varchar(20) DEFAULT NULL,
-  `timeslot_id` varchar(20) DEFAULT NULL
+  `program_name` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -59,7 +58,7 @@ CREATE TABLE `staff` (
 
 CREATE TABLE `stared_program` (
   `user_id` int(10) NOT NULL,
-  `program_id` varchar(20) NOT NULL
+  `program_id` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -68,13 +67,56 @@ CREATE TABLE `stared_program` (
 -- Table structure for table `timeslot`
 --
 
+
 CREATE TABLE `timeslot` (
-  `timeslot_id` varchar(20) NOT NULL,
-  `day` varchar(20) DEFAULT NULL,
-  `start_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `end_time` timestamp NULL DEFAULT NULL
+  `timeslot_id` int(20) NOT NULL,
+  `start_time` time NOT NULL DEFAULT current_timestamp(),
+  `end_time` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `timeslot`
+--
+
+INSERT INTO `timeslot` (`timeslot_id`, `start_time`, `end_time`) VALUES
+(2, '00:00:00', '05:30:00'),
+(3, '05:30:00', '06:30:00'),
+(4, '06:30:00', '06:45:00'),
+(5, '06:45:00', '08:00:00'),
+(6, '08:00:00', '11:00:00'),
+(7, '11:00:00', '12:00:00'),
+(8, '12:00:00', '12:30:00'),
+(9, '12:30:00', '15:30:00'),
+(10, '15:30:00', '18:00:00'),
+(11, '18:00:00', '19:00:00'),
+(12, '19:00:00', '19:30:00'),
+(13, '19:30:00', '20:00:00'),
+(14, '20:00:00', '20:30:00'),
+(15, '20:30:00', '21:00:00'),
+(16, '21:00:00', '21:30:00'),
+(17, '21:30:00', '22:00:00'),
+(18, '22:00:00', '22:30:00'),
+(19, '22:30:00', '00:00:00');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `timeslot`
+--
+ALTER TABLE `timeslot`
+  ADD PRIMARY KEY (`timeslot_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `timeslot`
+--
+ALTER TABLE `timeslot`
+  MODIFY `timeslot_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 -- --------------------------------------------------------
 
 --
@@ -90,6 +132,72 @@ CREATE TABLE `user` (
   `password` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+
+CREATE TABLE `day` (
+  `day_id` int(20) NOT NULL,
+  `day` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `day`
+--
+ALTER TABLE `day`
+  ADD PRIMARY KEY (`day_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `day`
+--
+ALTER TABLE `day`
+  MODIFY `day_id` int(20) NOT NULL AUTO_INCREMENT;
+
+
+  INSERT INTO `day` (`day_id`,`day`) VALUES (1,'monday');
+INSERT INTO `day` (`day_id`,`day`) VALUES (2,'Tuesday');
+INSERT INTO `day` (`day_id`,`day`) VALUES (3,'Wednesday');
+INSERT INTO `day` (`day_id`,`day`) VALUES (4,'Thursday');
+INSERT INTO `day` (`day_id`,`day`) VALUES (5,'Friday');
+INSERT INTO `day` (`day_id`,`day`) VALUES (6,'Saturday');
+INSERT INTO `day` (`day_id`,`day`) VALUES (7,'Sunday ');
+
+
+CREATE TABLE `programtime` (
+  `program_id` int(20) NOT NULL,
+  `day_id` int(20) NOT NULL,
+  `timeslot_id` int(20) DEFAULT NULL,
+  `programtime_id` int(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `programtime`
+--
+ALTER TABLE `programtime`
+  ADD KEY `program_id` (`program_id`),
+  ADD KEY `day_id` (`day_id`),
+  ADD KEY `timeslot_id` (`timeslot_id`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `programtime`
+--
+ALTER TABLE `programtime`
+  ADD CONSTRAINT `programtime_ibfk_1` FOREIGN KEY (`program_id`) REFERENCES `programs` (`program_id`),
+  ADD CONSTRAINT `programtime_ibfk_2` FOREIGN KEY (`day_id`) REFERENCES `day` (`day_id`),
+  ADD CONSTRAINT `programtime_ibfk_3` FOREIGN KEY (`timeslot_id`) REFERENCES `timeslot` (`timeslot_id`);
 --
 -- Indexes for dumped tables
 --
