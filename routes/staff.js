@@ -4,14 +4,15 @@ const {
   accountUpdatePage,
   accountUpdate,
 } = require("../controllers/staffController");
+const { isLogged } = require("../middleware/isLogged");
 const channel = require("../controllers/channel");
 
-router.get("/home", staffHomepage);
-router.get("/schedule", channel.getschedulel);
+router.get("/home", isLogged, staffHomepage);
+router.get("/schedule", isLogged, channel.getschedulel);
 router.post("/schedule", channel.schedulel);
 
-router.get("/AddProgram", channel.AddProgram);
+router.get("/AddProgram", isLogged, channel.AddProgram);
 
-router.get("/accountupdate", accountUpdatePage);
+router.get("/accountupdate", isLogged, accountUpdatePage);
 router.post("/accountupdate", accountUpdate);
 module.exports = router;

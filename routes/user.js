@@ -13,12 +13,12 @@ const channel = require("../controllers/channel");
 router.get("/home", isLogged, userHomePage);
 router.get("/user", isLogged, userHomePage);
 
-router.get("/timetable", channel.get_channel);
-router.get("/accountupdates-user", accountUpdatePage);
+router.get("/timetable", isLogged, channel.get_channel);
+router.get("/accountupdates-user", isLogged, accountUpdatePage);
 router.post("/accountupdates-user", accountUpdate);
 
-router.get("/addfeedback", channel.get_program);
-router.get("/timetable/:id", channel.get_channel);
-router.get("/addfeedback/:id", channel.get_program);
+router.get("/addfeedback", isLogged, channel.get_program);
+router.get("/timetable/:id", isLogged, channel.get_channel);
+router.get("/addfeedback/:id", isLogged, channel.get_program);
 router.post("/addfeedback/:id", channel.addfeedback);
 module.exports = router;
