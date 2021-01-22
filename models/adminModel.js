@@ -85,4 +85,24 @@ module.exports = {
       );
     });
   },
+  getAllchannel: () => {
+    return new Promise((resolve, reject) => {
+      pool.query(` SELECT channel_name,channel_id FROM channel;`, (err, result) => {
+        if (err) {
+          console.log(err);
+          reject(err);
+        } else {
+          var ch = {};
+          for (j = 0; j < result.length; j++) {
+            var trendprod = j;
+            var prodValue = { channelname: result[j].channel_name };
+            //result_len=result_len-1;
+            ch[trendprod] = {channel_name: result[j].channel_name,channel_id:result[j].channel_id };
+          }
+
+          resolve(ch);
+        }
+      });
+    });
+  },
 };
