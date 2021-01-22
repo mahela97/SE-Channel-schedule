@@ -68,19 +68,24 @@ exports.schedulel = async (req, res) => {
 };
 exports.get_program = async (req, res) => {
   console.log(req.session.user_id);
-  if (req.url != "/addfeedback") {
-    const channels = await getchannel();
-    const userId = await getuserId(req.session.user_id);
-    const programTable = await getprogramTable(req.params.id,userId);
-    console.log(programTable);
-    res.locals.channel = { channel: channels, programTable: programTable };
-    res.locals.ch = req.params.id;
-  } else {
-    const channels = await getchannel();
-    const programTable = "";
-    res.locals.channel = { channel: channels, programTable: programTable };
+  if (req.session.type === "user") {
+    if (req.url != "/addfeedback") {
+      const channels = await getchannel();
+      const userId = await getuserId(req.session.user_id);
+      const programTable = await getprogramTable(req.params.id, userId);
+      console.log(programTable);
+      res.locals.channel = { channel: channels, programTable: programTable };
+      res.locals.ch = req.params.id;
+    } else {
+      const channels = await getchannel();
+      const programTable = "";
+      res.locals.channel = { channel: channels, programTable: programTable };
+    }
+    res.render("user/addfeedback");
   }
-  res.render("user/addfeedback");
+  else { 
+     res.redirect(`/login`);
+  }
 };
 
 exports.addfeedback = async (req, res) => {
