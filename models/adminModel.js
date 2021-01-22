@@ -56,7 +56,7 @@ module.exports = {
     console.log(data);
     return new Promise((resolve, reject) => {
       pool.query(
-        `insert into channel (channel_id,channel_name) values (?,?)`,
+        `insert into channel (channel_id,channel_name) values (?,?);`,
         [data.channelname + 123, data.channelname],
         (err, result) => {
           if (err) {

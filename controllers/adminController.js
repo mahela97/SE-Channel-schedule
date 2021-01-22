@@ -1,4 +1,8 @@
-const { userLoginValidation } = require("./validator/validate");
+const {
+  userLoginValidation,
+  userRegisterValidation,
+  staffRegisterValidation,
+} = require("./validator/validate");
 const {
   findAdmin,
   createAdmin,
@@ -6,11 +10,16 @@ const {
   addChannel,
 } = require("../models/adminModel");
 const bcrypt = require("bcryptjs");
+const { findUserByEmail } = require("../models/userModel");
+const { createStaffMember } = require("../models/staffModel");
 
 module.exports = {
   //ADMIN LOGIN PAGE
   loginPageAdmin: (req, res) => {
-    res.render("admin/login");
+    res.render("admin/login", {
+      error: req.query.error,
+      email: req.query.email,
+    });
   },
 
   //LOGIN ADMIN
@@ -117,6 +126,45 @@ module.exports = {
 
   //RENDER ADD STAFF ACCOUNT
   addStaffPage: (req, res) => {
-    return res.render("admin/account");
+    return res.render("admin/account", {
+      error: req.query.error,
+      email: req.query.email,
+      status: req.query.status,
+    });
+  },
+
+  //ADDING STAFF TO A CHANNEL
+  addStaff: async (req, res) => {
+    const body = req.body;
+    const { error } = staffRegisterValidation(body);
+    if (error) {
+      return res.redirect(
+        `addstaff?error=${error.details[0].message.toUpperCase()}
+        &email=${req.body.email}`
+      );
+    }
+    const salt = await bcrypt.genSalt(10);
+    body.password = await bcrypt.hash(body.password, salt);
+    body.firstq = await bcrypt.hash(body.channel_id, salt);
+    body.secq = await bcrypt.hash(body.channel_id, salt);
+    createStaffMember(body, (err, result) => {
+      {
+        if (err) {
+          if (err.code == "ER_DUP_ENTRY") {
+            return res.redirect(
+              `addstaff?error=Email is already exist&email=${body.email}&user_id=${body.user_id}`
+            );
+          } else {
+            return res.redirect(
+              console.log(
+                err
+              )`addstaff?error=Cannot connect to the database. Try again.=${body.email}&user_id=${body.user_id}`
+            );
+          }
+        } else {
+          return res.redirect(`addstaff?status=Succesfully added`);
+        }
+      }
+    });
   },
 };

@@ -52,4 +52,9 @@ module.exports = {
       }
     });
   },
+
+  //ACCOUNT UPDATE PAGE
+  accountUpdatePage: (req, res) => {
+    return res.render(`user/accountupdates-user`);
+  },
 };
