@@ -68,6 +68,7 @@
       <ul class="menu">
         <li><a href="#">Home-staff</a></li>
         <li><a href="schedule">Schedule</a></li>
+        <li><a href="accountupdate">Account Updates</a></li>
       </ul>
     </div>
    
@@ -86,6 +87,7 @@
     <ul class="mainMenu margin-top-3">
        <li><a href="#">Home-staff</a></li>
         <li><a href="schedule">Schedule</a></li>
+        <li><a href="accountupdate">Account Updates</a></li>
       
     </ul>
     <ul class="subMenu small opacity-8">
@@ -111,7 +113,6 @@
             <li class="col-6-12 left" style="margin-top:50px;">
               <ul class="tabs controller uppercase bold  fromCenter done" data-slider-id="60-1">
                 <li class="selected">Update details</li>
-                <li class="">Delete account</li>
               </ul>
             </li>
             <li class="col-6-12 left ae-5 fromCenter done">
@@ -120,11 +121,11 @@
                   <form action="/action_page.php">
                     <div style="height: 500px;">
                       <h1 style="text-align: center;"><b>Edit Account </b></h1>
-                        <label for="username"><b>Username</b></label>
-                        <input type="text" class="update_details_input" placeholder="" name="username" id="username" style="width: 100%;
+                        <label for="username"><b>Password</b></label>
+                        <input type="password" class="update_details_input" placeholder="" name="password" id="newpass" style="width: 100%;
                         padding: 15px;margin: 5px 0 22px 0;display: inline-block;border: none;background: #f1f1f1;outline:none">
-                        <label for="email"><b>Email</b></label>
-                        <input type="email" class="update_details_input" placeholder="" name="email" id="email" style="width: 100%;
+                        <label for="email"><b>Re-Password</b></label>
+                        <input type="password" class="update_details_input" placeholder="" name="repassword" id="newpass1" style="width: 100%;
                         padding: 15px;margin: 5px 0 22px 0;display: inline-block;border: none;background: #f1f1f1;outline: none;">
                         <button type="submit" class="update_details_btn" style="background-color:cadetblue;color: white;
                         padding: 16px 20px;margin: 8px 0;border: none;cursor: pointer;width: 100%;opacity: 0.9;outline: none;">Update</button>

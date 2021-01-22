@@ -3,6 +3,7 @@ const router = require("express").Router();
 const {
   userHomePage,
   accountUpdatePage,
+  accountUpdate,
 } = require("../controllers/userController");
 
 const { isLogged } = require("../middleware/isLogged");
@@ -14,6 +15,7 @@ router.get("/user", isLogged, userHomePage);
 
 router.get("/timetable", channel.get_channel);
 router.get("/accountupdates-user", accountUpdatePage);
+router.post("/accountupdates-user", accountUpdate);
 
 router.get("/addfeedback", channel.get_program);
 router.get("/timetable/:id", channel.get_channel);
