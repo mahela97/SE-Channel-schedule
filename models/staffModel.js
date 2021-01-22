@@ -4,9 +4,29 @@ module.exports = {
   createStaffMember: (data, callBack) => {
     pool.query(
       `
-        INSERT INTO staff (user_id,email, password,channel_id) VALUES (?,?, ?);
+        INSERT INTO user (first_name,last_name,type,pet,color,email, password) VALUES (?,?,?,?,?,?,?);
         `,
-      [data.user_id, data.email, data.password, data.channel_id],
+      [
+        data.firstname,
+        data.lastname,
+        "staff",
+        data.channel_id,
+        data.channel_id,
+        data.email,
+        data.password,
+      ],
+      (err, result) => {
+        if (err) {
+          return callBack(err);
+        } else {
+          return callBack(null, result);
+        }
+      }
+    );
+
+    pool.query(
+      `INSERT INTO STAFF (user_id,channeld_id) VALUES ((SELECT USER_ID FROM USER WHERE email=?),?);`,
+      [data.email, data.channel_id],
       (err, result) => {
         if (err) {
           return callBack(err);

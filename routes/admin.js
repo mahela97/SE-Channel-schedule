@@ -8,6 +8,8 @@ const {
   channelListPage,
   accountUpdatePage,
   adminAddChannel,
+  addStaffPage,
+  addStaff,
 } = require("../controllers/adminController");
 
 const { isAdminLogged } = require("../middleware/isAdminLogged");
@@ -33,6 +35,7 @@ router.get("/channellist", isAdminLogged, channelListPage);
 router.get("/accountupdates", isAdminLogged, accountUpdatePage);
 
 //ADMIN ADD STAFF
-//router.get("/addstaff", addStaff);
+router.get("/addstaff", addStaffPage);
+router.post("/addStaff", addStaff);
 
 module.exports = router;
