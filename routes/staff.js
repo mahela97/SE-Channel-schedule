@@ -12,6 +12,6 @@ router.post("/schedule", channel.schedulel);
 
 router.get("/AddProgram", channel.AddProgram);
 
-router.get("/accountupdates", accountUpdatePage);
-router.post("/accountupdates", accountUpdate);
+router.get("/accountupdate", accountUpdatePage);
+router.post("/accountupdate", accountUpdate);
 module.exports = router;
