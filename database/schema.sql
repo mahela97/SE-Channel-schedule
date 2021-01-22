@@ -262,6 +262,8 @@ ADD COLUMN `color` VARCHAR(255) AFTER `type`;
 ALTER TABLE `user`
 ADD COLUMN `pet` VARCHAR(255) AFTER `type`;
 
+ALTER TABLE user ADD UNIQUE (email);
+
 
 --
 -- Constraints for dumped tables

@@ -23,7 +23,9 @@ module.exports = {
         }
       }
     );
+  },
 
+  addToStaff: (data, callBack) => {
     pool.query(
       `INSERT INTO STAFF (user_id,channeld_id) VALUES ((SELECT USER_ID FROM USER WHERE email=?),?);`,
       [data.email, data.channel_id],

@@ -7,11 +7,12 @@ const {
   findAdmin,
   createAdmin,
   getChannel,
+  getChannelById,
   addChannel,
 } = require("../models/adminModel");
 const bcrypt = require("bcryptjs");
 const { findUserByEmail } = require("../models/userModel");
-const { createStaffMember } = require("../models/staffModel");
+const { createStaffMember, findChannelbyId } = require("../models/staffModel");
 
 module.exports = {
   //ADMIN LOGIN PAGE
@@ -147,24 +148,30 @@ module.exports = {
     body.password = await bcrypt.hash(body.password, salt);
     body.firstq = await bcrypt.hash(body.channel_id, salt);
     body.secq = await bcrypt.hash(body.channel_id, salt);
-    createStaffMember(body, (err, result) => {
-      {
-        if (err) {
-          if (err.code == "ER_DUP_ENTRY") {
-            return res.redirect(
-              `addstaff?error=Email is already exist&email=${body.email}&user_id=${body.user_id}`
-            );
+    const channel_id = body.channel_id;
+    const isChannelExist = await getChannelById(channel_id);
+    if (!isChannelExist) {
+      return res.redirect(`addstaff?error=There is no channel with that ID`);
+    } else {
+      createStaffMember(body, (err, result) => {
+        {
+          if (err) {
+            if (err.code == "ER_DUP_ENTRY") {
+              return res.redirect(
+                `addstaff?error=Email is already exist&email=${body.email}&user_id=${body.user_id}`
+              );
+            } else {
+              return res.redirect(
+                console.log(
+                  err
+                )`addstaff?error=Cannot connect to the database. Try again.=${body.email}&user_id=${body.user_id}`
+              );
+            }
           } else {
-            return res.redirect(
-              console.log(
-                err
-              )`addstaff?error=Cannot connect to the database. Try again.=${body.email}&user_id=${body.user_id}`
-            );
+            return res.redirect(`addstaff?status=Success`);
           }
-        } else {
-          return res.redirect(`addstaff?status=Succesfully added`);
         }
-      }
-    });
+      });
+    }
   },
 };

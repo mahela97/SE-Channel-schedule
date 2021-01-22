@@ -51,6 +51,22 @@ module.exports = {
       );
     });
   },
+  getChannelById: (data) => {
+    console.log(data);
+    return new Promise((resolve, reject) => {
+      pool.query(
+        `select * from channel where channel_id=?`,
+        [data],
+        (err, result) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(result[0]);
+          }
+        }
+      );
+    });
+  },
 
   addChannel: (data) => {
     console.log(data);

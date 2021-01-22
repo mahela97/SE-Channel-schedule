@@ -35,7 +35,7 @@ router.get("/channellist", isAdminLogged, channelListPage);
 router.get("/accountupdates", isAdminLogged, accountUpdatePage);
 
 //ADMIN ADD STAFF
-router.get("/addstaff", addStaffPage);
+router.get("/addstaff", isAdminLogged, addStaffPage);
 router.post("/addStaff", addStaff);
 
 module.exports = router;
