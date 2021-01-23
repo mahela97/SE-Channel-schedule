@@ -63,9 +63,11 @@ module.exports = {
 
   //RENDER RECOVER PAGE
   recoverPage: (req, res) => {
-    return res.render("forgotpw");
+    res.render("forgotpw",{
+      error: req.query.error,
+    });
   },
-
+  
   //GET RECOVER EMAIL
   getEmail: async (req, res) => {
     const body = req.body;
@@ -88,7 +90,9 @@ module.exports = {
 
   //RENDER CHANGE PASSWORD
   changePasswordPage: (req, res) => {
-    return res.render("changepw");
+    return res.render("changepw",{
+      error: req.query.error,
+    });
   },
 
   //CHANGE PASSWORD
@@ -117,7 +121,9 @@ module.exports = {
 
   //RENDER SECURITY CHECK
   checkPage: (req, res) => {
-    return res.render("securitycheck");
+    return res.render("securitycheck",{
+      error: req.query.error,
+    });
   },
 
   //MATCH SECURITY QUESTIONS
@@ -140,3 +146,5 @@ module.exports = {
     }
   },
 };
+
+

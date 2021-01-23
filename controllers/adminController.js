@@ -98,7 +98,9 @@ module.exports = {
 
   //RENDER ADMIN ADD CHANNEL
   addChannelPage: (req, res) => {
-    return res.render("admin/addchannel");
+    return res.render("admin/addchannel",{
+      error: req.query.error,
+    });
   },
 
   //ADD CHANNEL

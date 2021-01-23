@@ -191,7 +191,9 @@
           <!-- <div class="container signin">
             <p>Already have an account? <a href="#">Sign in</a>.</p> -->
           </div>
-        
+        {{#if error}}
+          <div style="font-size:20px; color:red;"><b>{{error}} </b></div>
+          {{/if}}
           
         </form>
 

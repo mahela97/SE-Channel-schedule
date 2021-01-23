@@ -150,7 +150,11 @@
               width: 100%;
               opacity: 0.9;" class="logbtn">Change Password</button>
             
-              <br><br>    
+              <br><br>  
+               {{#if error}}
+                <div style="font-size:20px; color:red;"><b>{{error}} </b></div>
+                {{/if}}
+
 
       </form>
                 

@@ -133,6 +133,10 @@
                         <button type="submit" class="update_details_btn" style="background-color:cadetblue;color: white;
                         padding: 16px 20px;margin: 8px 0;border: none;cursor: pointer;width: 100%;opacity: 0.9;outline: none;">Update</button>
                     </div>
+
+                     {{#if error}}
+          <div style="font-size:20px; color:red;"><b>{{error}} </b></div>
+          {{/if}}
                   </form>
                 </li>
                 <li class="fromCenter done hide">
