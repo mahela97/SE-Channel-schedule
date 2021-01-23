@@ -129,63 +129,61 @@ module.exports = {
     });
   },
   scheduleChannel: (details, channel_id) => {
-    
- pool.query(
-              "select * from `programtime` where `timeslot_id`=? and `channel_id`=? and `day_id`=?;",
-              [details.time,channel_id, details.day],
+    pool.query(
+      "select * from `programtime` where `timeslot_id`=? and `channel_id`=? and `day_id`=?;",
+      [details.time, channel_id, details.day],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(result);
+          if (result.length > 0) {
+            pool.query(
+              "update `programtime` set `program_id`=?,`day_id`=?,`timeslot_id`=?,`channel_id`=? WHERE   `timeslot_id`=? and `channel_id`=? and `day_id`=?;",
+              [
+                details.programme_id,
+                details.day,
+                details.time,
+                channel_id,
+                details.time,
+                channel_id,
+                details.day,
+              ],
               (err, result) => {
                 if (err) {
-                   console.log(err);
+                  console.log(err);
+                  // return callBack(err);
                 } else {
-                   console.log(result);
-                  if (result.length > 0) {
-                    pool.query(
-                      "update `programtime` set `program_id`=?,`day_id`=?,`timeslot_id`=?,`channel_id`=? WHERE   `timeslot_id`=? and `channel_id`=? and `day_id`=?;",
-                      [
-                        details.programme_id,
-                        details.day,
-                        details.time,
-                        channel_id,
-                        details.time,
-                        channel_id,
-                        details.day,
-                      ],
-                      (err, result) => {
-                        if (err) {
-                          console.log(err);
-                          // return callBack(err);
-                        } else {
-                          console.log(result);
-                          // return callBack(null, result);
-                        }
-                      }
-                    );
-                  } else {
-                    pool.query(
-                      "INSERT INTO `programtime`(`program_id`, `day_id`, `timeslot_id`,`channel_id`) VALUES (?,?,?,?);",
-                      [details.programme_id, details.day, details.time, channel_id],
-                      (err, result) => {
-                        if (err) {
-                          console.log(err);
-                          // return callBack(err);
-                        } else {
-                          console.log(result);
-                          // return callBack(null, result);
-                        }
-                      }
-                    );
-                  }
+                  console.log(result);
+                  // return callBack(null, result);
                 }
               }
             );
-
+          } else {
+            pool.query(
+              "INSERT INTO `programtime`(`program_id`, `day_id`, `timeslot_id`,`channel_id`) VALUES (?,?,?,?);",
+              [details.programme_id, details.day, details.time, channel_id],
+              (err, result) => {
+                if (err) {
+                  console.log(err);
+                  // return callBack(err);
+                } else {
+                  console.log(result);
+                  // return callBack(null, result);
+                }
+              }
+            );
+          }
+        }
+      }
+    );
   },
   getTimeTable: (channelname) => {
     return new Promise((resolve, reject) => {
-     
       pool.query(
         ` select p.program_name,t.start_time,t.end_time,d.day,c.channel_name, t.timeslot_id from programtime as pt left outer join channel as c using(channel_id)   left outer join programs as p using(program_id) left outer join timeslot as t using(timeslot_id) left outer join day as d using(day_id)   where c.channel_name=? order by (d.day_id);
-`,[channelname],
+`,
+        [channelname],
         (err, result) => {
           if (err) {
             console.log(err);
@@ -440,32 +438,32 @@ module.exports = {
     );
   },
 
-   getuserId: (email) => {
+  getuserId: (email) => {
     return new Promise((resolve, reject) => {
-      pool.query(` select user_id from user where email=?;`,email, (err, result) => {
-        if (err) {
-          console.log(err);
-          reject(err);
-        } else {
-         
-          resolve(result[0].user_id);
+      pool.query(
+        ` select user_id from user where email=?;`,
+        email,
+        (err, result) => {
+          if (err) {
+            console.log(err);
+            reject(err);
+          } else {
+            resolve(result[0].user_id);
+          }
         }
-      });
+      );
     });
   },
-  addProgram: (details,channel_id) => {
-     
-            pool.query(
-              `INSERT INTO programs (channel_id, program_name) VALUES (?, ?);`,
-              [channel_id, details],
-              (err, result) => {
-                if (err) {
-                  
-                  console.log(err);
-                } else {
-               
+  addProgram: (details, channel_id) => {
+    pool.query(
+      `INSERT INTO programs (channel_id, program_name) VALUES (?, ?);`,
+      [channel_id, details],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
         }
       }
     );
-   },
+  },
 };

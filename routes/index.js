@@ -22,6 +22,7 @@ const { isNotLoggedIn } = require("../middleware/isNotLoggedIn");
 const { whatType } = require("../middleware/whatType");
 const { isValidate } = require("../middleware/isValidate");
 const { allowEmail } = require("../middleware/allowEmail");
+const { anyPage } = require("../middleware/anyRoute");
 
 //INDEX
 router.get(
@@ -60,5 +61,6 @@ router.get("/logout", logOut);
 router.use("/user", user);
 router.use("/staff", staff);
 router.use("/admin", admin);
+router.get("*", anyPage);
 
 module.exports = router;
