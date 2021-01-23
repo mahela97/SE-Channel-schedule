@@ -1,19 +1,11 @@
-
-CREATE DATABASE TV2;
-
-USE TV2;
-
-
---
--- Table structure for TABLE `admin`
---
-
+---------------------------------------------------------
+-- Table structure for admin
 CREATE TABLE `admin` (
-  `email` varchar(255) NOT NULL UNIQUE,
+  `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL
 );
--- --------------------------------------------------------
+----------------------------------------------------------
 
 CREATE TABLE `channel` (
   `channel_id` varchar(20) NOT NULL,
@@ -76,7 +68,7 @@ CREATE TABLE `stared_program` (
 
 CREATE TABLE `timeslot` (
   `timeslot_id` int(20) NOT NULL,
-  `start_time` time NOT NULL DEFAULT current_timestamp(),
+  `start_time` time NOT NULL ,
   `end_time` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -84,25 +76,7 @@ CREATE TABLE `timeslot` (
 -- Dumping data for table `timeslot`
 --
 
-INSERT INTO `timeslot` (`timeslot_id`, `start_time`, `end_time`) VALUES
-(2, '00:00:00', '05:30:00'),
-(3, '05:30:00', '06:30:00'),
-(4, '06:30:00', '06:45:00'),
-(5, '06:45:00', '08:00:00'),
-(6, '08:00:00', '11:00:00'),
-(7, '11:00:00', '12:00:00'),
-(8, '12:00:00', '12:30:00'),
-(9, '12:30:00', '15:30:00'),
-(10, '15:30:00', '18:00:00'),
-(11, '18:00:00', '19:00:00'),
-(12, '19:00:00', '19:30:00'),
-(13, '19:30:00', '20:00:00'),
-(14, '20:00:00', '20:30:00'),
-(15, '20:30:00', '21:00:00'),
-(16, '21:00:00', '21:30:00'),
-(17, '21:30:00', '22:00:00'),
-(18, '22:00:00', '22:30:00'),
-(19, '22:30:00', '00:00:00');
+
 
 --
 -- Indexes for dumped tables
@@ -111,8 +85,7 @@ INSERT INTO `timeslot` (`timeslot_id`, `start_time`, `end_time`) VALUES
 --
 -- Indexes for table `timeslot`
 --
-ALTER TABLE `timeslot`
-  ADD PRIMARY KEY (`timeslot_id`);
+
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -121,8 +94,7 @@ ALTER TABLE `timeslot`
 --
 -- AUTO_INCREMENT for table `timeslot`
 --
-ALTER TABLE `timeslot`
-  MODIFY `timeslot_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
 -- --------------------------------------------------------
 
 --
@@ -189,6 +161,7 @@ CREATE TABLE `programtime` (
 -- Indexes for table `programtime`
 --
 ALTER TABLE `programtime`
+  ADD PRIMARY KEY (`programtime_id`),
   ADD KEY `program_id` (`program_id`),
   ADD KEY `day_id` (`day_id`),
   ADD KEY `timeslot_id` (`timeslot_id`);
@@ -200,15 +173,12 @@ ALTER TABLE `programtime`
 --
 -- Constraints for table `programtime`
 --
-ALTER TABLE `programtime`
-  ADD CONSTRAINT `programtime_ibfk_1` FOREIGN KEY (`program_id`) REFERENCES `programs` (`program_id`),
-  ADD CONSTRAINT `programtime_ibfk_2` FOREIGN KEY (`day_id`) REFERENCES `day` (`day_id`),
-  ADD CONSTRAINT `programtime_ibfk_3` FOREIGN KEY (`timeslot_id`) REFERENCES `timeslot` (`timeslot_id`);
+
 --
 -- Indexes for dumped tables
 --
 
---Indexes for admin table
+
 
 ALTER TABLE `admin`
   ADD PRIMARY KEY(`email`);
@@ -234,8 +204,7 @@ ALTER TABLE `feedbacks`
 --
 ALTER TABLE `programs`
   ADD PRIMARY KEY (`program_id`),
-  ADD KEY `channel_id` (`channel_id`),
-  ADD KEY `timeslot_id` (`timeslot_id`);
+  ADD KEY `channel_id` (`channel_id`);
 
 --
 -- Indexes for table `staff`
@@ -254,7 +223,8 @@ ALTER TABLE `stared_program`
 --
 ALTER TABLE `timeslot`
   ADD PRIMARY KEY (`timeslot_id`);
-
+ALTER TABLE `timeslot`
+  MODIFY `timeslot_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- Indexes for table `user`
 --
@@ -286,8 +256,8 @@ ALTER TABLE `feedbacks`
 -- Constraints for table `programs`
 --
 ALTER TABLE `programs`
-  ADD CONSTRAINT `programs_ibfk_1` FOREIGN KEY (`channel_id`) REFERENCES `channel` (`channel_id`),
-  ADD CONSTRAINT `programs_ibfk_2` FOREIGN KEY (`timeslot_id`) REFERENCES `timeslot` (`timeslot_id`);
+  ADD CONSTRAINT `programs_ibfk_1` FOREIGN KEY (`channel_id`) REFERENCES `channel` (`channel_id`);
+  
 
 --
 -- Constraints for table `staff`
@@ -304,4 +274,32 @@ ALTER TABLE `staff`
 ALTER TABLE `stared_program`
   ADD CONSTRAINT `stared_program_ibfk_1` FOREIGN KEY (`program_id`) REFERENCES `programs` (`program_id`),
   ADD CONSTRAINT `stared_program_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
+  
+  
+  ALTER TABLE `programtime`
+  ADD CONSTRAINT `programtime_ibf_1` FOREIGN KEY (`program_id`) REFERENCES `programs` (`program_id`),
+  ADD CONSTRAINT `programtime_ibf_2` FOREIGN KEY (`day_id`) REFERENCES `day` (`day_id`),
+  ADD CONSTRAINT `programtime_ibf_3` FOREIGN KEY (`timeslot_id`) REFERENCES `timeslot` (`timeslot_id`);
+  
+  
+  
+  INSERT INTO `timeslot` (`timeslot_id`, `start_time`, `end_time`) VALUES
+(2, '00:00:00', '05:30:00'),
+(3, '05:30:00', '06:30:00'),
+(4, '06:30:00', '06:45:00'),
+(5, '06:45:00', '08:00:00'),
+(6, '08:00:00', '11:00:00'),
+(7, '11:00:00', '12:00:00'),
+(8, '12:00:00', '12:30:00'),
+(9, '12:30:00', '15:30:00'),
+(10, '15:30:00', '18:00:00'),
+(11, '18:00:00', '19:00:00'),
+(12, '19:00:00', '19:30:00'),
+(13, '19:30:00', '20:00:00'),
+(14, '20:00:00', '20:30:00'),
+(15, '20:30:00', '21:00:00'),
+(16, '21:00:00', '21:30:00'),
+(17, '21:30:00', '22:00:00'),
+(18, '22:00:00', '22:30:00'),
+(19, '22:30:00', '00:00:00');
 COMMIT;
