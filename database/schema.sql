@@ -1,3 +1,4 @@
+
 CREATE DATABASE TV2;
 USE TV2;
 
@@ -151,6 +152,11 @@ ALTER TABLE `timeslot`
   ADD PRIMARY KEY (`timeslot_id`);
 ALTER TABLE `timeslot`
   MODIFY `timeslot_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  
+ALTER TABLE `programs`
+  MODIFY `program_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+ALTER TABLE `programtime`
+  MODIFY `programtime_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`);
