@@ -336,7 +336,7 @@ module.exports = {
   getprogramTable: (channelname, userid) => {
     return new Promise((resolve, reject) => {
       pool.query(
-        "select fp.user_id,p.program_id,program_name,feedback from programs as p left outer join channel using(channel_id) left outer join stared_program as fp using(program_id) LEFT OUTER join (select * from feedbacks where feedback_id in (SELECT MAX(feedback_id) from feedbacks group by (program_id))) as  fe on( fe.program_id=p.program_id) where channel_name=? and (fp.user_id is null or fp.user_id=?)  GROUP by (p.program_id) ORDER by(feedback_id) DESC;",
+        "select fp.user_id as userid,p.program_id,program_name,feedback from programs as p left outer join channel using(channel_id) left outer join stared_program as fp using(program_id) LEFT OUTER join (select * from feedbacks where feedback_id in (SELECT MAX(feedback_id) from feedbacks group by (program_id))) as  fe on( fe.program_id=p.program_id) where channel_name=? and (fp.user_id is null or fp.user_id=?)  GROUP by (p.program_id) ORDER by(feedback_id) DESC;",
         [channelname, userid],
         (err, result) => {
           if (err) {
@@ -350,7 +350,7 @@ module.exports = {
               const prId = fre[j].program_id;
               const prname = fre[j].program_name;
               
-              program[pro] = { name: prname, id: prId, fav: userid, feedback: result[j].feedback };
+              program[pro] = { name: prname, id: prId, fav: result[j].userid, feedback: result[j].feedback };
               console.log(program);
             }
 
