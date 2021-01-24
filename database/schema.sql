@@ -157,7 +157,8 @@ ALTER TABLE `programs`
   MODIFY `program_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 ALTER TABLE `programtime`
   MODIFY `programtime_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
+ALTER TABLE `feedbacks`
+  MODIFY `feedback_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`);
 ALTER TABLE `user` CHANGE `user_id` `user_id` INT(10)AUTO_INCREMENT;
