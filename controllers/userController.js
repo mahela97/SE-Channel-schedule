@@ -74,7 +74,7 @@ module.exports = {
 
     const salt = await bcrypt.genSalt(10);
     body.password = await bcrypt.hash(body.password, salt);
-    body.email = req.session.user_id;
+    body.email = req.session.email;
     try {
       const update = await saveNewPassword(body, (err, result) => {
         if (err) {

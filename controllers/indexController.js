@@ -4,6 +4,7 @@ const {
   validatePassword,
 } = require("./validator/validate");
 const bcrypt = require("bcryptjs");
+const session = require("express-session");
 
 module.exports = {
   //RENDER LOGIN PAGE
@@ -99,10 +100,10 @@ module.exports = {
     }
 
     const salt = await bcrypt.genSalt(10);
-    body.newpass = await bcrypt.hash(body.newpass, salt);
+    body.password = await bcrypt.hash(body.password, salt);
     body.email = req.session.email;
     try {
-      saveNewPassword(body, (err, result) => {
+      const update = await saveNewPassword(body, (err, result) => {
         if (err) {
           return res.redirect(`changepw?error=Error`);
         } else {
