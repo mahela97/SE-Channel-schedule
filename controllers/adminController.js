@@ -13,7 +13,11 @@ const {
 } = require("../models/adminModel");
 const bcrypt = require("bcryptjs");
 const { findUserByEmail } = require("../models/userModel");
-const { createStaffMember, findChannelbyId } = require("../models/staffModel");
+const {
+  createStaffMember,
+  findChannelbyId,
+  addToStaff,
+} = require("../models/staffModel");
 
 module.exports = {
   //ADMIN LOGIN PAGE
@@ -159,7 +163,9 @@ module.exports = {
               );
             } else {
               return res.redirect(
-                `addstaff?error=Cannot connect to the database. Try again.=${body.email}&user_id=${body.user_id}`
+                console.log(
+                  err
+                )`addstaff?error=Cannot connect to the database. Try again.=${body.email}&user_id=${body.user_id}`
               );
             }
           } else {

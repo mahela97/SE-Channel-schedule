@@ -5,6 +5,7 @@ module.exports = {
     pool.query(
       `
         INSERT INTO user (first_name,last_name,type,pet,color,email, password) VALUES (?,?,?,?,?,?,?);
+        INSERT INTO STAFF (user_id,channeld_id) VALUES ((SELECT USER_ID FROM USER WHERE email=?),?);
         `,
       [
         data.firstname,
@@ -14,6 +15,8 @@ module.exports = {
         data.channel_id,
         data.email,
         data.password,
+        data.email,
+        data.channel_id,
       ],
       (err, result) => {
         if (err) {
@@ -48,6 +51,7 @@ module.exports = {
           if (err) {
             reject(err);
           } else {
+            console.log(result);
             resolve({
               channel_id: result[0].channel_id,
               channel_name: result[0].channel_name,
