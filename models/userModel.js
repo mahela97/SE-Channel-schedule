@@ -29,7 +29,7 @@ module.exports = {
   saveNewPassword: (data, callBack) => {
     pool.query(
       `update user set password=? where email=?;`,
-      [data.password, data.email],
+      [data.newpass, data.email],
       (err, result) => {
         if (err) {
           return callBack(err);
@@ -336,22 +336,22 @@ module.exports = {
   getprogramTable: (channelname, userid) => {
     return new Promise((resolve, reject) => {
       pool.query(
-        "select * from programs left outer join channel using(channel_id) left outer join stared_program as fp using(program_id) where channel_name=? and (fp.user_id is null or user_id=?);",
+        "select fp.user_id,p.program_id,program_name,feedback from programs as p left outer join channel using(channel_id) left outer join stared_program as fp using(program_id) LEFT OUTER join (select * from feedbacks where feedback_id in (SELECT MAX(feedback_id) from feedbacks group by (program_id))) as  fe on( fe.program_id=p.program_id) where channel_name=? and (fp.user_id is null or fp.user_id=?)  GROUP by (p.program_id) ORDER by(feedback_id) DESC;",
         [channelname, userid],
         (err, result) => {
           if (err) {
             reject(err);
           } else {
             var program = {};
+             var feed = {};
             const fre = result;
             for (j = 0; j < fre.length; j++) {
               var pro = "program" + j;
               const prId = fre[j].program_id;
               const prname = fre[j].program_name;
-
-              // var prodValue = {'channelname':result[j].channel_name};
-              //result_len=result_len-1;
-              program[pro] = { name: prname, id: prId, fav: result[j].user_id };
+              
+              program[pro] = { name: prname, id: prId, fav: userid, feedback: result[j].feedback };
+              console.log(program);
             }
 
             resolve(program);
