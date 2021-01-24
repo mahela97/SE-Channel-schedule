@@ -51,7 +51,6 @@ module.exports = {
           if (err) {
             reject(err);
           } else {
-            console.log(result);
             resolve({
               channel_id: result[0].channel_id,
               channel_name: result[0].channel_name,
