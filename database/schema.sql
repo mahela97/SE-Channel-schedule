@@ -103,7 +103,8 @@ CREATE TABLE `programtime` (
   `program_id` int(20) NOT NULL,
   `day_id` int(20) NOT NULL,
   `timeslot_id` int(20) DEFAULT NULL,
-  `programtime_id` int(10) DEFAULT NULL
+  `programtime_id` int(10) DEFAULT NULL,
+   `channel_id` varchar(20) NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
@@ -111,6 +112,7 @@ ALTER TABLE `programtime`
   ADD PRIMARY KEY (`programtime_id`),
   ADD KEY `program_id` (`program_id`),
   ADD KEY `day_id` (`day_id`),
+   ADD KEY `channel_id` (`channel_id`),
   ADD KEY `timeslot_id` (`timeslot_id`);
 
 
@@ -185,9 +187,10 @@ ALTER TABLE `stared_program`
   ADD CONSTRAINT `stared_program_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
   
   
-  ALTER TABLE `programtime`
+ALTER TABLE `programtime`
   ADD CONSTRAINT `programtime_ibf_1` FOREIGN KEY (`program_id`) REFERENCES `programs` (`program_id`),
   ADD CONSTRAINT `programtime_ibf_2` FOREIGN KEY (`day_id`) REFERENCES `day` (`day_id`),
+   ADD CONSTRAINT `programtime_ibf_4` FOREIGN KEY (`channel_id`) REFERENCES `channel` (`channel_id`)
   ADD CONSTRAINT `programtime_ibf_3` FOREIGN KEY (`timeslot_id`) REFERENCES `timeslot` (`timeslot_id`);
   
  INSERT INTO `admin` (`email`, `password`, `type`) VALUES ('admin@gmail.com', '$2a$10$R21KJErJ/4F3X34HJiKRFObkdijQbfNnhaepqiqxNhozTxaOWoH56', 'admin');
