@@ -97,7 +97,7 @@ INSERT INTO `day` (`day_id`,`day`) VALUES (3,'Wednesday');
 INSERT INTO `day` (`day_id`,`day`) VALUES (4,'Thursday');
 INSERT INTO `day` (`day_id`,`day`) VALUES (5,'Friday');
 INSERT INTO `day` (`day_id`,`day`) VALUES (6,'Saturday');
-INSERT INTO `day` (`day_id`,`day`) VALUES (7,'Sunday ');
+INSERT INTO `day` (`day_id`,`day`) VALUES (7,'Sunday');
 
 
 CREATE TABLE `programtime` (
