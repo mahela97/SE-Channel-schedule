@@ -29,7 +29,7 @@ module.exports = {
   saveNewPassword: (data, callBack) => {
     pool.query(
       `update user set password=? where email=?;`,
-      [data.newpass, data.email],
+      [data.password, data.email],
       (err, result) => {
         if (err) {
           return callBack(err);
