@@ -590,6 +590,10 @@
                     <button class="button" type="submit">submit</button>
                   </td>
                 </TR>
+
+                {{#if error}}
+                     <div style="font-size:20px; color:red;"><b>{{error}} </b></div>
+                    {{/if}}
               </form>
 
               {{/each}}

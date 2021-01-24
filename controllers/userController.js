@@ -58,7 +58,10 @@ module.exports = {
 
   //ACCOUNT UPDATE PAGE
   accountUpdatePage: (req, res) => {
-    return res.render(`user/accountupdates-user`, { status: req.query.status });
+    return res.render(`user/accountupdates-user`, { 
+      status: req.query.status,
+      error: req.query.error,
+    });
   },
 
   //CHANGE PASSWORD

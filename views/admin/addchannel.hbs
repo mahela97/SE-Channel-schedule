@@ -135,6 +135,10 @@
               width: 100%;
               opacity: 0.9;" class="logbtn">Add</button>
               <br><br>
+
+               {{#if error}}
+              <div style="font-size:20px; color:red;"><b>{{error}} </b></div>
+              {{/if}}
                </form>
             </div>
       </div>

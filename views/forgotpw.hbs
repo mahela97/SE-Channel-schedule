@@ -140,7 +140,11 @@
               width: 100%;
               opacity: 0.9;" class="logbtn">Send Reset Link</button>
               <br><br>    
-               Back to <a href="/login">Login</a>   
+               Back to <a href="/login">Login</a>  
+              <br><br>
+               {{#if error}}
+          <div style="font-size:20px; color:red;"><b>{{error}} </b></div>
+          {{/if}}
           </form>  
           </div>
 	 </div>

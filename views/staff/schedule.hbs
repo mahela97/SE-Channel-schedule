@@ -313,6 +313,10 @@
           cursor: pointer;
           width: 15%;
           opacity: 0.9;" class="registerbtn">Update</button>
+          <br><br>
+          {{#if error}}
+          <div style="font-size:20px; color:red;"><b>{{error}} </b></div>
+          {{/if}}
           </form> <br><br>
           <TABLE class="myTimetable">
             <THEAD>

@@ -136,6 +136,10 @@
                   <br><br>  
                     
                   <a href="addchannel.hbs">Add New Channel</a><br><br>
+
+                  {{#if error}}
+          <div style="font-size:20px; color:red;"><b>{{error}} </b></div>
+          {{/if}} 
                   </form>
         
           </div>
