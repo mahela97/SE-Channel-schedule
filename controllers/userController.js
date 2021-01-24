@@ -1,4 +1,7 @@
-const { createRegisteredUser } = require("../models/userModel");
+const {
+  createRegisteredUser,
+  saveNewPassword,
+} = require("../models/userModel");
 
 const {
   userRegisterValidation,
@@ -70,10 +73,10 @@ module.exports = {
     }
 
     const salt = await bcrypt.genSalt(10);
-    body.password = await bcrypt.hash(body.newpass, salt);
-    body.email = req.session.email;
+    body.password = await bcrypt.hash(body.password, salt);
+    body.email = req.session.user_id;
     try {
-      saveNewPassword(body, (err, result) => {
+      const update = await saveNewPassword(body, (err, result) => {
         if (err) {
           return res.redirect(`accountupdates-user?error=Error`);
         } else {

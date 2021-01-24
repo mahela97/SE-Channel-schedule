@@ -1,3 +1,7 @@
+const { validatePassword } = require("./validator/validate");
+const { saveNewPassword } = require("../models/userModel");
+const bcrypt = require("bcryptjs");
+
 module.exports = {
   //RENDER STAFF HOMEPAGE
 
@@ -15,24 +19,23 @@ module.exports = {
     const body = req.body;
     const { error } = validatePassword(body);
     if (error) {
-      return res.redirect(`accountupdates?error=Passwords do not match`);
+      console.log(error);
+      return res.redirect(`accountupdate?error=Passwords do not match`);
     }
 
     const salt = await bcrypt.genSalt(10);
-    body.password = await bcrypt.hash(body.newpass, salt);
-    body.email = req.session.email;
+    body.password = await bcrypt.hash(body.password, salt);
+    body.email = req.session.user_id;
     try {
-      saveNewPassword(body, (err, result) => {
+      const update = await saveNewPassword(body, (err, result) => {
         if (err) {
-          return res.redirect(`accountupdates?error=Error`);
+          return res.redirect(`accountupdate?error=Error`);
         } else {
-          return res.redirect("accountupdates?status=Success");
+          return res.redirect("accountupdate?status=Success");
         }
       });
     } catch (err) {
-      return res.redirect(
-        `accountupdates?error=Cannot connect to the database`
-      );
+      return res.redirect(`accountupdate?error=Cannot connect to the database`);
     }
   },
 };

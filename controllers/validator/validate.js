@@ -32,8 +32,8 @@ const staffLoginValidation = (data) => {
 
 const validatePassword = (data) => {
   const schema = {
-    newpass: Joi.string().min(6).max(255).required(),
-    newpass1: Joi.any().valid(Joi.ref("newpass")).required(),
+    password: Joi.string().min(6).max(255).required(),
+    repassword: Joi.any().valid(Joi.ref("password")).required(),
   };
   return Joi.validate(data, schema);
 };
