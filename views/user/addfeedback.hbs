@@ -573,9 +573,14 @@
                     <input type="hidden" value="{{this.id}}" id="proid" name="proid">
                   </TD>
                   <TD>
-
+                    {{#if this.feedback}}
+                    <input type="text" class="feed" style="" name="addfeedback" id="addfeedback"
+                      placeholder="add feedback" value="{{this.feedback}}">
+                    {{else}}
                     <input type="text" class="feed" style="" name="addfeedback" id="addfeedback"
                       placeholder="add feedback">
+                    {{/if}}
+
                   </TD>
                   <td>
                     {{#if this.fav}}
