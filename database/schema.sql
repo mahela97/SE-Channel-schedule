@@ -190,7 +190,7 @@ ALTER TABLE `stared_program`
 ALTER TABLE `programtime`
   ADD CONSTRAINT `programtime_ibf_1` FOREIGN KEY (`program_id`) REFERENCES `programs` (`program_id`),
   ADD CONSTRAINT `programtime_ibf_2` FOREIGN KEY (`day_id`) REFERENCES `day` (`day_id`),
-   ADD CONSTRAINT `programtime_ibf_4` FOREIGN KEY (`channel_id`) REFERENCES `channel` (`channel_id`)
+   ADD CONSTRAINT `programtime_ibf_4` FOREIGN KEY (`channel_id`) REFERENCES `channel` (`channel_id`),
   ADD CONSTRAINT `programtime_ibf_3` FOREIGN KEY (`timeslot_id`) REFERENCES `timeslot` (`timeslot_id`);
   
  INSERT INTO `admin` (`email`, `password`, `type`) VALUES ('admin@gmail.com', '$2a$10$R21KJErJ/4F3X34HJiKRFObkdijQbfNnhaepqiqxNhozTxaOWoH56', 'admin');
