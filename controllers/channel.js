@@ -71,6 +71,7 @@ exports.get_program = async (req, res) => {
       const userId = await getuserId(req.session.user_id);
       const programTable = await getprogramTable(req.params.id, userId);
       res.locals.channel = { channel: channels, programTable: programTable };
+      console.log(programTable);
       res.locals.ch = req.params.id;
     } else {
       const channels = await getchannel();
