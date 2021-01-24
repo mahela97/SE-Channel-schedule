@@ -46,10 +46,8 @@ module.exports = {
         user_id,
         (err, result) => {
           if (err) {
-            console.log(err);
             reject(err);
           } else {
-            console.log(result[0].channel_name);
             resolve({
               channel_id: result[0].channel_id,
               channel_name: result[0].channel_name,
@@ -68,7 +66,6 @@ module.exports = {
         (err, result) => {
           var ch = {};
           if (err) {
-            console.log(err);
             reject(err);
           } else {
             for (j = 0; j < result.length; j++) {

@@ -10,7 +10,7 @@ const pool = createPool({
   database: process.env.DATABASE,
   connectionLimit: 10,
   multipleStatements: true,
-  ssl: true,
+  ssl: false,
 });
 
 module.exports = pool;

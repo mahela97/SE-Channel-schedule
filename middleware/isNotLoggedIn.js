@@ -1,6 +1,5 @@
 module.exports = {
   isNotLoggedIn: (req, res, next) => {
-    console.log(req.session);
     if (req.session.type === "admin" && req.session.type) {
       req.session.user_id = null;
       req.session.type = null;

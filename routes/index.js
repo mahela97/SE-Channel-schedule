@@ -28,7 +28,6 @@ const { anyPage } = require("../middleware/anyRoute");
 router.get(
   "/",
   (req, res, next) => {
-    console.log(req.session);
     next();
   },
   isLogged,

@@ -20,7 +20,6 @@ module.exports = {
     const body = req.body;
     const { error } = userLoginValidation(req.body);
     if (error) {
-      console.log(error);
       return res.redirect(
         `login?error=${error.details[0].message.toUpperCase()}&email=${
           body.email
@@ -128,7 +127,6 @@ module.exports = {
       const { pet, color } = user;
       const validPet = await bcrypt.compare(body.secq, pet);
       const validColor = await bcrypt.compare(body.firstq, color);
-      console.log(validPet, validColor);
       if (validPet && validColor) {
         req.session.valid = true;
         return res.redirect("/changepw");

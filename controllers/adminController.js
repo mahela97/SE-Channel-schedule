@@ -29,7 +29,6 @@ module.exports = {
     const body = req.body;
     const { error } = userLoginValidation(req.body);
     if (error) {
-      console.log(error);
       return res.redirect(
         `admin?error=${error.details[0].message.toUpperCase()}&email=${
           body.email
@@ -63,7 +62,6 @@ module.exports = {
 
   //Registering a admin
   addAdmin: async (req, res) => {
-    console.log(req.body);
     const body = req.body;
     const { error } = userLoginValidation(req.body);
     if (error) {
@@ -104,33 +102,28 @@ module.exports = {
   //ADD CHANNEL
   adminAddChannel: async (req, res) => {
     const body = req.body;
-    console.log(body);
     const result = await getChannel(body.channelname);
-    console.log(result);
     if (result.channel_id) {
       res.redirect(`addchannel?error=Use an another name please.`);
     } else {
       try {
         const status = await addChannel(body);
-        console.log(status);
         res.redirect(`addchannel?Success`);
       } catch (err) {
-        console.log(err);
         res.redirect(`addchannel?error`);
       }
     }
   },
 
   //RENDER ACCOUNT UPDATES
-  accountUpdatePage:  (req, res) => {
+  accountUpdatePage: (req, res) => {
     return res.render("admin/accountupdates");
   },
 
   //RENDER ADD STAFF ACCOUNT
   addStaffPage: async (req, res) => {
-    const channels =await getAllchannel();
-    console.log(channels);
-    res.locals.channel = { channel: channels};
+    const channels = await getAllchannel();
+    res.locals.channel = { channel: channels };
     return res.render("admin/account", {
       error: req.query.error,
       email: req.query.email,
@@ -166,9 +159,7 @@ module.exports = {
               );
             } else {
               return res.redirect(
-                console.log(
-                  err
-                )`addstaff?error=Cannot connect to the database. Try again.=${body.email}&user_id=${body.user_id}`
+                `addstaff?error=Cannot connect to the database. Try again.=${body.email}&user_id=${body.user_id}`
               );
             }
           } else {

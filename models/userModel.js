@@ -18,10 +18,8 @@ module.exports = {
       ],
       (err, result) => {
         if (err) {
-          console.log(err);
           return callBack(err);
         } else {
-          console.log(result);
           return callBack(null, result);
         }
       }
@@ -34,10 +32,8 @@ module.exports = {
       [data.newpass, data.email],
       (err, result) => {
         if (err) {
-          console.log(err);
           return callBack(err);
         } else {
-          console.log(result);
           return callBack(null, result);
         }
       }
@@ -52,10 +48,8 @@ module.exports = {
         [email],
         (err, result) => {
           if (err) {
-            console.log(err);
             reject(err);
           } else {
-            console.log(result);
             resolve(result[0]);
           }
         }
@@ -68,7 +62,6 @@ module.exports = {
         ` SELECT timeslot_id,start_time,end_time FROM timeslot;`,
         (err, result) => {
           if (err) {
-            console.log(err);
             reject(err);
           } else {
             var ch = {};
@@ -92,7 +85,6 @@ module.exports = {
     return new Promise((resolve, reject) => {
       pool.query(` SELECT day_id,day FROM day;`, (err, result) => {
         if (err) {
-          console.log(err);
           reject(err);
         } else {
           var ch = {};
@@ -112,7 +104,6 @@ module.exports = {
     return new Promise((resolve, reject) => {
       pool.query(` SELECT channel_name FROM channel;`, (err, result) => {
         if (err) {
-          console.log(err);
           reject(err);
         } else {
           var ch = {};
@@ -134,9 +125,7 @@ module.exports = {
       [details.time, channel_id, details.day],
       (err, result) => {
         if (err) {
-          console.log(err);
         } else {
-          console.log(result);
           if (result.length > 0) {
             pool.query(
               "update `programtime` set `program_id`=?,`day_id`=?,`timeslot_id`=?,`channel_id`=? WHERE   `timeslot_id`=? and `channel_id`=? and `day_id`=?;",
@@ -151,10 +140,8 @@ module.exports = {
               ],
               (err, result) => {
                 if (err) {
-                  console.log(err);
                   // return callBack(err);
                 } else {
-                  console.log(result);
                   // return callBack(null, result);
                 }
               }
@@ -165,10 +152,8 @@ module.exports = {
               [details.programme_id, details.day, details.time, channel_id],
               (err, result) => {
                 if (err) {
-                  console.log(err);
                   // return callBack(err);
                 } else {
-                  console.log(result);
                   // return callBack(null, result);
                 }
               }
@@ -186,10 +171,8 @@ module.exports = {
         [channelname],
         (err, result) => {
           if (err) {
-            console.log(err);
             reject(err);
           } else {
-            console.log(result);
             var ch = {};
             var slot = {};
             var slot2 = {};
@@ -343,7 +326,6 @@ module.exports = {
               slot17,
               slot18,
             };
-            console.log(ch);
             resolve(ch);
           }
         }
@@ -358,7 +340,6 @@ module.exports = {
         [channelname, userid],
         (err, result) => {
           if (err) {
-            console.log(err);
             reject(err);
           } else {
             var program = {};
@@ -373,7 +354,6 @@ module.exports = {
               program[pro] = { name: prname, id: prId, fav: result[j].user_id };
             }
 
-            console.log(program);
             resolve(program);
           }
         }
@@ -387,20 +367,16 @@ module.exports = {
         [userid, data.addfeedback, data.proid],
         (err, result) => {
           if (err) {
-            console.log(err);
           } else {
-            console.log(result);
           }
         }
       );
     }
-    console.log(data.fav);
     pool.query(
       "select * from `stared_program` where `user_id`=? and  `program_id`=? ;",
       [userid, data.proid],
       (err, result) => {
         if (err) {
-          console.log(err);
         } else {
           if (result.length > 0) {
             if (!data.fav) {
@@ -410,9 +386,7 @@ module.exports = {
 
                 (err, result) => {
                   if (err) {
-                    console.log(err);
                   } else {
-                    console.log(result);
                   }
                 }
               );
@@ -425,9 +399,7 @@ module.exports = {
 
                 (err, result) => {
                   if (err) {
-                    console.log(err);
                   } else {
-                    console.log(result);
                   }
                 }
               );
@@ -445,7 +417,6 @@ module.exports = {
         email,
         (err, result) => {
           if (err) {
-            console.log(err);
             reject(err);
           } else {
             resolve(result[0].user_id);
@@ -460,7 +431,6 @@ module.exports = {
       [channel_id, details],
       (err, result) => {
         if (err) {
-          console.log(err);
         } else {
         }
       }

@@ -8,10 +8,8 @@ module.exports = {
         [email],
         (err, result) => {
           if (err) {
-            console.log(err);
             reject(err);
           } else {
-            console.log(result);
             resolve(result[0]);
           }
         }
@@ -36,7 +34,6 @@ module.exports = {
   },
 
   getChannel: (data) => {
-    console.log(data);
     return new Promise((resolve, reject) => {
       pool.query(
         `select * from channel where channel_name=?`,
@@ -52,7 +49,6 @@ module.exports = {
     });
   },
   getChannelById: (data) => {
-    console.log(data);
     return new Promise((resolve, reject) => {
       pool.query(
         `select * from channel where channel_id=?`,
@@ -69,14 +65,12 @@ module.exports = {
   },
 
   addChannel: (data) => {
-    console.log(data);
     return new Promise((resolve, reject) => {
       pool.query(
         `insert into channel (channel_id,channel_name) values (?,?);`,
         [data.channelname + 123, data.channelname],
         (err, result) => {
           if (err) {
-            console.log(err);
             reject(err);
           } else {
             resolve(result[0]);
@@ -87,22 +81,27 @@ module.exports = {
   },
   getAllchannel: () => {
     return new Promise((resolve, reject) => {
-      pool.query(` SELECT channel_name,channel_id FROM channel;`, (err, result) => {
-        if (err) {
-          console.log(err);
-          reject(err);
-        } else {
-          var ch = {};
-          for (j = 0; j < result.length; j++) {
-            var trendprod = j;
-            var prodValue = { channelname: result[j].channel_name };
-            //result_len=result_len-1;
-            ch[trendprod] = {channel_name: result[j].channel_name,channel_id:result[j].channel_id };
-          }
+      pool.query(
+        ` SELECT channel_name,channel_id FROM channel;`,
+        (err, result) => {
+          if (err) {
+            reject(err);
+          } else {
+            var ch = {};
+            for (j = 0; j < result.length; j++) {
+              var trendprod = j;
+              var prodValue = { channelname: result[j].channel_name };
+              //result_len=result_len-1;
+              ch[trendprod] = {
+                channel_name: result[j].channel_name,
+                channel_id: result[j].channel_id,
+              };
+            }
 
-          resolve(ch);
+            resolve(ch);
+          }
         }
-      });
+      );
     });
   },
 };
