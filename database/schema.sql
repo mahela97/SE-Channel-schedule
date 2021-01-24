@@ -104,7 +104,7 @@ CREATE TABLE `programtime` (
   `day_id` int(20) NOT NULL,
   `timeslot_id` int(20) DEFAULT NULL,
   `programtime_id` int(10) DEFAULT NULL,
-   `channel_id` varchar(20) NOT NULL,
+   `channel_id` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
